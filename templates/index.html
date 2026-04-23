@@ -1,925 +1,3709 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SiPelayan — Portal Layanan Publik</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --green:#1A9E72;--green-dark:#0D6B4C;--green-light:#D6F5EB;
-    --amber:#F5A623;--amber-light:#FEF3DC;
-    --blue:#2D7DD2;--blue-light:#E3F0FB;
-    --red:#E84040;--red-light:#FDEAEA;
-    --purple:#6C4FD4;--purple-light:#EDE9FD;
-    --surface:#F4F7F5;--white:#FFFFFF;
-    --text:#1A2B24;--text-muted:#6B8178;
-    --border:#D8E6E0;
-    --shadow:0 2px 12px rgba(26,158,114,.08);
-    --shadow-lg:0 8px 32px rgba(26,158,114,.14);
-    --radius:14px;--radius-sm:8px;--radius-pill:999px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--surface);color:var(--text);min-height:100vh}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SiPelayan — Portal Layanan Publik</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --green: #1a9e72;
+        --green-dark: #0d6b4c;
+        --green-light: #d6f5eb;
+        --amber: #f5a623;
+        --amber-light: #fef3dc;
+        --blue: #2d7dd2;
+        --blue-light: #e3f0fb;
+        --red: #e84040;
+        --red-light: #fdeaea;
+        --purple: #6c4fd4;
+        --purple-light: #ede9fd;
+        --surface: #f4f7f5;
+        --white: #ffffff;
+        --text: #1a2b24;
+        --text-muted: #6b8178;
+        --border: #d8e6e0;
+        --shadow: 0 2px 12px rgba(26, 158, 114, 0.08);
+        --shadow-lg: 0 8px 32px rgba(26, 158, 114, 0.14);
+        --radius: 14px;
+        --radius-sm: 8px;
+        --radius-pill: 999px;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: var(--surface);
+        color: var(--text);
+        min-height: 100vh;
+      }
 
-  /* LAYOUT */
-  .layout{display:flex;min-height:100vh}
-  .sidebar{width:260px;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s}
-  .sidebar-logo{padding:24px 20px 18px;border-bottom:1px solid var(--border)}
-  .logo-mark{display:flex;align-items:center;gap:10px}
-  .logo-icon{width:36px;height:36px;background:var(--green);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
-  .logo-text{font-family:'Fraunces',serif;font-size:20px;font-weight:700}
-  .logo-text span{color:var(--green)}
-  .sidebar-nav{flex:1;padding:14px 12px;overflow-y:auto}
-  .nav-label{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase;padding:8px 12px;margin-top:6px}
-  .nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-sm);cursor:pointer;font-size:14px;font-weight:500;color:var(--text-muted);transition:all .2s;margin-bottom:2px}
-  .nav-item:hover{background:var(--surface);color:var(--text)}
-  .nav-item.active{background:var(--green-light);color:var(--green-dark)}
-  .nav-icon{font-size:17px;width:22px;text-align:center}
-  .nav-badge{margin-left:auto;background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:var(--radius-pill)}
-  .sidebar-footer{padding:14px 12px;border-top:1px solid var(--border)}
-  .user-pill{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-sm);background:var(--surface)}
-  .user-avatar{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
-  .user-name{font-size:13px;font-weight:600}
-  .user-role{font-size:11px;color:var(--text-muted)}
+      /* LAYOUT */
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+      .sidebar {
+        width: 260px;
+        background: var(--white);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+        transition: transform 0.3s;
+      }
+      .sidebar-logo {
+        padding: 24px 20px 18px;
+        border-bottom: 1px solid var(--border);
+      }
+      .logo-mark {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--green);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 18px;
+      }
+      .logo-text {
+        font-family: "Fraunces", serif;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .logo-text span {
+        color: var(--green);
+      }
+      .sidebar-nav {
+        flex: 1;
+        padding: 14px 12px;
+        overflow-y: auto;
+      }
+      .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        padding: 8px 12px;
+        margin-top: 6px;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-muted);
+        transition: all 0.2s;
+        margin-bottom: 2px;
+      }
+      .nav-item:hover {
+        background: var(--surface);
+        color: var(--text);
+      }
+      .nav-item.active {
+        background: var(--green-light);
+        color: var(--green-dark);
+      }
+      .nav-icon {
+        font-size: 17px;
+        width: 22px;
+        text-align: center;
+      }
+      .nav-badge {
+        margin-left: auto;
+        background: var(--green);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: var(--radius-pill);
+      }
+      .sidebar-footer {
+        padding: 14px 12px;
+        border-top: 1px solid var(--border);
+      }
+      .user-pill {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+      }
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--green);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .user-name {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .user-role {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
 
-  /* MAIN */
-  .main{margin-left:260px;flex:1;display:flex;flex-direction:column}
-  .topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-  .topbar h1{font-size:17px;font-weight:700}
-  .topbar p{font-size:12px;color:var(--text-muted)}
-  .topbar-right{display:flex;align-items:center;gap:8px}
-  .icon-btn{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;position:relative;transition:background .2s}
-  .icon-btn:hover{background:var(--green-light)}
-  .notif-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:var(--red);border:2px solid #fff}
-  .content{padding:24px 28px;flex:1}
+      /* MAIN */
+      .main {
+        margin-left: 260px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .topbar {
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        padding: 0 28px;
+        height: 62px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+      .topbar h1 {
+        font-size: 17px;
+        font-weight: 700;
+      }
+      .topbar p {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .icon-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 16px;
+        position: relative;
+        transition: background 0.2s;
+      }
+      .icon-btn:hover {
+        background: var(--green-light);
+      }
+      .notif-dot {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--red);
+        border: 2px solid #fff;
+      }
+      .content {
+        padding: 24px 28px;
+        flex: 1;
+      }
 
-  /* PAGES */
-  .page{display:none}
-  .page.active{display:block;animation:fadeUp .3s ease}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+      /* PAGES */
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+        animation: fadeUp 0.3s ease;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-  /* AWS STATUS BANNER */
-  .aws-banner{border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;border:1.5px solid var(--border);background:var(--white)}
-  .aws-banner.healthy{border-color:#A8E6CE;background:#F0FBF7}
-  .aws-banner.degraded{border-color:#FFC9C9;background:#FFF5F5}
-  .aws-banner.checking{border-color:var(--border);background:var(--surface)}
-  .aws-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-  .aws-dot.on{background:var(--green)}
-  .aws-dot.off{background:var(--red)}
-  .aws-dot.spin{background:var(--amber);animation:pulse 1s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-  .aws-label{font-size:14px;font-weight:600}
-  .aws-sub{font-size:12px;color:var(--text-muted)}
-  .aws-chips{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
-  .aws-chip{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:var(--radius-pill);font-size:12px;font-weight:600;border:1px solid transparent}
-  .aws-chip.ok{background:var(--green-light);color:var(--green-dark);border-color:#A8E6CE}
-  .aws-chip.fail{background:var(--red-light);color:var(--red);border-color:#FFC9C9}
-  .aws-chip.wait{background:var(--amber-light);color:#8B5E00;border-color:#FFD99A}
-  .chip-dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.7}
-  .check-btn{padding:7px 14px;border-radius:var(--radius-sm);background:var(--white);border:1.5px solid var(--border);font-size:13px;font-weight:600;cursor:pointer;color:var(--text);transition:all .2s;white-space:nowrap}
-  .check-btn:hover{border-color:var(--green);color:var(--green)}
+      /* AWS STATUS BANNER */
+      .aws-banner {
+        border-radius: var(--radius);
+        padding: 16px 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        border: 1.5px solid var(--border);
+        background: var(--white);
+      }
+      .aws-banner.healthy {
+        border-color: #a8e6ce;
+        background: #f0fbf7;
+      }
+      .aws-banner.degraded {
+        border-color: #ffc9c9;
+        background: #fff5f5;
+      }
+      .aws-banner.checking {
+        border-color: var(--border);
+        background: var(--surface);
+      }
+      .aws-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .aws-dot.on {
+        background: var(--green);
+      }
+      .aws-dot.off {
+        background: var(--red);
+      }
+      .aws-dot.spin {
+        background: var(--amber);
+        animation: pulse 1s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      .aws-label {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .aws-sub {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .aws-chips {
+        display: flex;
+        gap: 8px;
+        margin-left: auto;
+        flex-wrap: wrap;
+      }
+      .aws-chip {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        border-radius: var(--radius-pill);
+        font-size: 12px;
+        font-weight: 600;
+        border: 1px solid transparent;
+      }
+      .aws-chip.ok {
+        background: var(--green-light);
+        color: var(--green-dark);
+        border-color: #a8e6ce;
+      }
+      .aws-chip.fail {
+        background: var(--red-light);
+        color: var(--red);
+        border-color: #ffc9c9;
+      }
+      .aws-chip.wait {
+        background: var(--amber-light);
+        color: #8b5e00;
+        border-color: #ffd99a;
+      }
+      .chip-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0.7;
+      }
+      .check-btn {
+        padding: 7px 14px;
+        border-radius: var(--radius-sm);
+        background: var(--white);
+        border: 1.5px solid var(--border);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        color: var(--text);
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .check-btn:hover {
+        border-color: var(--green);
+        color: var(--green);
+      }
 
-  /* STATS */
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
-  .stat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
-  .stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-  .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0}
-  .stat-card.green::before{background:var(--green)}
-  .stat-card.amber::before{background:var(--amber)}
-  .stat-card.blue::before{background:var(--blue)}
-  .stat-card.red::before{background:var(--red)}
-  .stat-icon{font-size:22px;margin-bottom:10px}
-  .stat-num{font-size:26px;font-weight:700}
-  .stat-label{font-size:12px;color:var(--text-muted);margin-top:2px}
+      /* STATS */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+      .stat-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: var(--radius) var(--radius) 0 0;
+      }
+      .stat-card.green::before {
+        background: var(--green);
+      }
+      .stat-card.amber::before {
+        background: var(--amber);
+      }
+      .stat-card.blue::before {
+        background: var(--blue);
+      }
+      .stat-card.red::before {
+        background: var(--red);
+      }
+      .stat-icon {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+      .stat-num {
+        font-size: 26px;
+        font-weight: 700;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
 
-  /* SERVICE CARDS */
-  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
-  .svc-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all .25s;position:relative}
-  .svc-card:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-  .svc-card.featured{border-color:var(--green);background:linear-gradient(135deg,#F0FBF7 0%,#fff 100%)}
-  .pop-badge{position:absolute;top:12px;right:12px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:var(--radius-pill);text-transform:uppercase}
-  .svc-emoji{width:48px;height:48px;background:var(--surface);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px}
-  .svc-name{font-size:14px;font-weight:700;margin-bottom:5px}
-  .svc-desc{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:12px}
-  .svc-meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-muted)}
-  .svc-arrow{width:26px;height:26px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:13px;transition:background .2s,transform .2s}
-  .svc-card:hover .svc-arrow{background:var(--green);color:#fff;transform:translateX(3px)}
+      /* SERVICE CARDS */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+      .svc-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.25s;
+        position: relative;
+      }
+      .svc-card:hover {
+        border-color: var(--green);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+      .svc-card.featured {
+        border-color: var(--green);
+        background: linear-gradient(135deg, #f0fbf7 0%, #fff 100%);
+      }
+      .pop-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: var(--green);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: var(--radius-pill);
+        text-transform: uppercase;
+      }
+      .svc-emoji {
+        width: 48px;
+        height: 48px;
+        background: var(--surface);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 12px;
+      }
+      .svc-name {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .svc-desc {
+        font-size: 12px;
+        color: var(--text-muted);
+        line-height: 1.5;
+        margin-bottom: 12px;
+      }
+      .svc-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .svc-arrow {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+      }
+      .svc-card:hover .svc-arrow {
+        background: var(--green);
+        color: #fff;
+        transform: translateX(3px);
+      }
 
-  /* MODAL */
-  .overlay{display:none;position:fixed;inset:0;background:rgba(15,40,30,.5);z-index:200;align-items:flex-start;justify-content:center;padding:32px 16px;overflow-y:auto}
-  .overlay.open{display:flex;animation:fadeIn .2s}
-  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  .modal{background:var(--white);border-radius:20px;width:100%;max-width:600px;padding:28px;animation:slideUp .28s ease;position:relative}
-  @keyframes slideUp{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
-  .modal-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
-  .modal-icon-big{font-size:32px;width:54px;height:54px;background:var(--green-light);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
-  .modal-title{font-size:19px;font-weight:700}
-  .modal-sub{font-size:13px;color:var(--text-muted);margin-top:3px}
-  .close-btn{width:30px;height:30px;border-radius:8px;background:var(--surface);border:none;cursor:pointer;font-size:16px;color:var(--text-muted);display:flex;align-items:center;justify-content:center}
-  .close-btn:hover{background:var(--border)}
+      /* MODAL */
+      .overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 40, 30, 0.5);
+        z-index: 200;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 32px 16px;
+        overflow-y: auto;
+      }
+      .overlay.open {
+        display: flex;
+        animation: fadeIn 0.2s;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .modal {
+        background: var(--white);
+        border-radius: 20px;
+        width: 100%;
+        max-width: 600px;
+        padding: 28px;
+        animation: slideUp 0.28s ease;
+        position: relative;
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(24px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .modal-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .modal-icon-big {
+        font-size: 32px;
+        width: 54px;
+        height: 54px;
+        background: var(--green-light);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+      .modal-title {
+        font-size: 19px;
+        font-weight: 700;
+      }
+      .modal-sub {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 3px;
+      }
+      .close-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: var(--surface);
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .close-btn:hover {
+        background: var(--border);
+      }
 
-  /* FORM */
-  .fg{margin-bottom:14px}
-  .fl{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
-  .req{color:var(--red);margin-left:2px}
-  .fi,.fs,.ft{width:100%;padding:10px 13px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s}
-  .fi:focus,.fs:focus,.ft:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(26,158,114,.1);background:var(--white)}
-  .ft{resize:vertical;min-height:80px;line-height:1.5}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      /* FORM */
+      .fg {
+        margin-bottom: 14px;
+      }
+      .fl {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+      .req {
+        color: var(--red);
+        margin-left: 2px;
+      }
+      .fi,
+      .fs,
+      .ft {
+        width: 100%;
+        padding: 10px 13px;
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: var(--text);
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .fi:focus,
+      .fs:focus,
+      .ft:focus {
+        border-color: var(--green);
+        box-shadow: 0 0 0 3px rgba(26, 158, 114, 0.1);
+        background: var(--white);
+      }
+      .ft {
+        resize: vertical;
+        min-height: 80px;
+        line-height: 1.5;
+      }
+      .row2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
 
-  /* UPLOAD ZONE */
-  .upload-zone{border:2px dashed var(--border);border-radius:var(--radius-sm);padding:20px;text-align:center;cursor:pointer;transition:all .2s;position:relative;background:var(--surface)}
-  .upload-zone:hover,.upload-zone.drag{border-color:var(--green);background:var(--green-light)}
-  .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-  .upload-icon{font-size:28px;margin-bottom:8px}
-  .upload-title{font-size:14px;font-weight:600;margin-bottom:4px}
-  .upload-hint{font-size:12px;color:var(--text-muted)}
-  .upload-preview{display:none;margin-top:12px;position:relative}
-  .upload-preview img{width:100%;max-height:180px;object-fit:cover;border-radius:var(--radius-sm);border:1px solid var(--border)}
-  .upload-preview .preview-name{font-size:12px;color:var(--text-muted);margin-top:6px;text-align:left}
-  .preview-pdf{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px}
-  .preview-pdf-icon{font-size:24px}
-  .preview-pdf-name{font-size:13px;font-weight:500}
-  .preview-pdf-size{font-size:11px;color:var(--text-muted)}
-  .remove-file{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center}
-  .upload-multi{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+      /* UPLOAD ZONE */
+      .upload-zone {
+        border: 2px dashed var(--border);
+        border-radius: var(--radius-sm);
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        background: var(--surface);
+      }
+      .upload-zone:hover,
+      .upload-zone.drag {
+        border-color: var(--green);
+        background: var(--green-light);
+      }
+      .upload-zone input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+      }
+      .upload-icon {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+      .upload-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .upload-hint {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .upload-preview {
+        display: none;
+        margin-top: 12px;
+        position: relative;
+      }
+      .upload-preview img {
+        width: 100%;
+        max-height: 180px;
+        object-fit: cover;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+      }
+      .upload-preview .preview-name {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 6px;
+        text-align: left;
+      }
+      .preview-pdf {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 10px 14px;
+      }
+      .preview-pdf-icon {
+        font-size: 24px;
+      }
+      .preview-pdf-name {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .preview-pdf-size {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+      .remove-file {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--red);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .upload-multi {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .upload-progress {
+        display: none;
+        margin-top: 10px;
+      }
+      .upload-bar-track {
+        height: 5px;
+        background: var(--border);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .upload-bar-fill {
+        height: 100%;
+        background: var(--green);
+        border-radius: 5px;
+        width: 0;
+        transition: width 0.3s;
+      }
+      .upload-bar-label {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 5px;
+        text-align: center;
+      }
 
-  /* PROGRESS BAR during upload */
-  .upload-progress{display:none;margin-top:10px}
-  .upload-bar-track{height:5px;background:var(--border);border-radius:5px;overflow:hidden}
-  .upload-bar-fill{height:100%;background:var(--green);border-radius:5px;width:0;transition:width .3s}
-  .upload-bar-label{font-size:12px;color:var(--text-muted);margin-top:5px;text-align:center}
+      /* MODAL ACTIONS */
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .btn-ghost {
+        flex: 1;
+        padding: 11px;
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: all 0.2s;
+      }
+      .btn-ghost:hover {
+        background: var(--border);
+      }
+      .btn-submit {
+        flex: 2;
+        padding: 11px;
+        border-radius: var(--radius-sm);
+        background: var(--green);
+        border: none;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s;
+      }
+      .btn-submit:hover {
+        background: var(--green-dark);
+        transform: translateY(-1px);
+      }
+      .btn-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .btn-danger {
+        flex: 1;
+        padding: 11px;
+        border-radius: var(--radius-sm);
+        background: var(--red-light);
+        border: 1.5px solid #ffc9c9;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        color: var(--red);
+        transition: all 0.2s;
+      }
+      .btn-danger:hover {
+        background: var(--red);
+        color: #fff;
+      }
 
-  /* MODAL ACTIONS */
-  .modal-actions{display:flex;gap:10px;margin-top:20px}
-  .btn-ghost{flex:1;padding:11px;border-radius:var(--radius-sm);background:var(--surface);border:1.5px solid var(--border);font-size:14px;font-weight:600;cursor:pointer;color:var(--text-muted);transition:all .2s}
-  .btn-ghost:hover{background:var(--border)}
-  .btn-submit{flex:2;padding:11px;border-radius:var(--radius-sm);background:var(--green);border:none;font-size:14px;font-weight:700;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
-  .btn-submit:hover{background:var(--green-dark);transform:translateY(-1px)}
-  .btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+      /* STATUS PAGE */
+      .search-bar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+      .search-input {
+        flex: 1;
+        padding: 10px 15px;
+        background: var(--white);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: var(--text);
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .search-input:focus {
+        border-color: var(--green);
+      }
+      .search-btn {
+        padding: 10px 20px;
+        background: var(--green);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .search-btn:hover {
+        background: var(--green-dark);
+      }
+      .ticket-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .ticket {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 18px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 14px;
+        align-items: center;
+        transition: box-shadow 0.2s;
+      }
+      .ticket:hover {
+        box-shadow: var(--shadow);
+      }
+      .ticket-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: var(--surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .ticket-id {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 600;
+      }
+      .ticket-name {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 2px 0;
+      }
+      .ticket-date {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .ticket-files {
+        font-size: 11px;
+        color: var(--green-dark);
+        margin-top: 3px;
+      }
+      .progress-track {
+        height: 4px;
+        background: var(--surface);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+      .progress-fill {
+        height: 100%;
+        border-radius: 4px;
+        background: var(--green);
+        transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .progress-fill.amber {
+        background: var(--amber);
+      }
+      .psteps {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+      }
+      .pstep {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+      .pstep.done {
+        color: var(--green);
+        font-weight: 600;
+      }
+      .sbadge {
+        padding: 4px 11px;
+        border-radius: var(--radius-pill);
+        font-size: 11px;
+        font-weight: 700;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .sbadge::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .sb-proses {
+        background: var(--blue-light);
+        color: var(--blue);
+      }
+      .sb-proses::before {
+        background: var(--blue);
+      }
+      .sb-selesai {
+        background: var(--green-light);
+        color: var(--green-dark);
+      }
+      .sb-selesai::before {
+        background: var(--green);
+      }
+      .sb-menunggu {
+        background: var(--amber-light);
+        color: #8b5e00;
+      }
+      .sb-menunggu::before {
+        background: var(--amber);
+      }
 
-  /* STATUS PAGE */
-  .search-bar{display:flex;gap:10px;margin-bottom:18px}
-  .search-input{flex:1;padding:10px 15px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--text);outline:none;transition:border-color .2s}
-  .search-input:focus{border-color:var(--green)}
-  .search-btn{padding:10px 20px;background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
-  .search-btn:hover{background:var(--green-dark)}
-  .ticket-list{display:flex;flex-direction:column;gap:12px}
-  .ticket{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;transition:box-shadow .2s}
-  .ticket:hover{box-shadow:var(--shadow)}
-  .ticket-icon{width:42px;height:42px;border-radius:12px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-  .ticket-id{font-size:11px;color:var(--text-muted);font-weight:600}
-  .ticket-name{font-size:14px;font-weight:700;margin:2px 0}
-  .ticket-date{font-size:12px;color:var(--text-muted)}
-  .ticket-files{font-size:11px;color:var(--green-dark);margin-top:3px}
-  .progress-track{height:4px;background:var(--surface);border-radius:4px;overflow:hidden;margin-top:8px}
-  .progress-fill{height:100%;border-radius:4px;background:var(--green);transition:width .8s cubic-bezier(.4,0,.2,1)}
-  .progress-fill.amber{background:var(--amber)}
-  .psteps{display:flex;justify-content:space-between;margin-top:5px}
-  .pstep{font-size:11px;color:var(--text-muted)}
-  .pstep.done{color:var(--green);font-weight:600}
-  .sbadge{padding:4px 11px;border-radius:var(--radius-pill);font-size:11px;font-weight:700;white-space:nowrap;display:flex;align-items:center;gap:4px}
-  .sbadge::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0}
-  .sb-proses{background:var(--blue-light);color:var(--blue)}.sb-proses::before{background:var(--blue)}
-  .sb-selesai{background:var(--green-light);color:var(--green-dark)}.sb-selesai::before{background:var(--green)}
-  .sb-menunggu{background:var(--amber-light);color:#8B5E00}.sb-menunggu::before{background:var(--amber)}
+      /* PENGADUAN PAGE */
+      .two-panel {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 20px;
+      }
+      .form-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 26px;
+      }
+      .form-card h2 {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .form-card > p {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 22px;
+        line-height: 1.5;
+      }
+      .info-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 22px;
+        height: fit-content;
+      }
+      .info-card h3 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 14px;
+      }
+      .info-item {
+        display: flex;
+        gap: 11px;
+        margin-bottom: 14px;
+      }
+      .info-item:last-child {
+        margin-bottom: 0;
+      }
+      .info-ico {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: var(--surface);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+      }
+      .info-item h4 {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .info-item p {
+        font-size: 12px;
+        color: var(--text-muted);
+        line-height: 1.4;
+      }
+      .char-count {
+        font-size: 12px;
+        color: var(--text-muted);
+        text-align: right;
+        margin-top: 4px;
+      }
 
-  /* PENGADUAN PAGE */
-  .two-panel{display:grid;grid-template-columns:1fr 300px;gap:20px}
-  .form-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:26px}
-  .form-card h2{font-size:17px;font-weight:700;margin-bottom:5px}
-  .form-card>p{font-size:13px;color:var(--text-muted);margin-bottom:22px;line-height:1.5}
-  .info-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:22px;height:fit-content}
-  .info-card h3{font-size:14px;font-weight:700;margin-bottom:14px}
-  .info-item{display:flex;gap:11px;margin-bottom:14px}
-  .info-item:last-child{margin-bottom:0}
-  .info-ico{width:34px;height:34px;border-radius:10px;background:var(--surface);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px}
-  .info-item h4{font-size:13px;font-weight:700;margin-bottom:2px}
-  .info-item p{font-size:12px;color:var(--text-muted);line-height:1.4}
-  .char-count{font-size:12px;color:var(--text-muted);text-align:right;margin-top:4px}
+      /* EMPTY STATE */
+      .empty {
+        text-align: center;
+        padding: 40px 20px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+      .empty-ico {
+        font-size: 42px;
+        margin-bottom: 10px;
+      }
+      .empty-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .empty-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
 
-  /* EMPTY STATE */
-  .empty{text-align:center;padding:40px 20px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius)}
-  .empty-ico{font-size:42px;margin-bottom:10px}
-  .empty-title{font-size:15px;font-weight:700;margin-bottom:5px}
-  .empty-desc{font-size:13px;color:var(--text-muted)}
+      /* DASHBOARD 2-COL */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 18px;
+      }
+      .panel {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px;
+      }
+      .panel-title {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 14px;
+      }
+      .act-item {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 9px 0;
+        border-bottom: 1px solid var(--surface);
+      }
+      .act-item:last-child {
+        border-bottom: none;
+      }
+      .act-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .act-text {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .act-time {
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-top: 1px;
+      }
+      .act-status {
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-left: auto;
+      }
+      .qs-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 0;
+        border-bottom: 1px solid var(--surface);
+      }
+      .qs-item:last-child {
+        border-bottom: none;
+      }
+      .qs-label {
+        font-size: 13px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .qs-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+      }
+      .qs-val {
+        font-size: 15px;
+        font-weight: 700;
+      }
 
-  /* DASHBOARD 2-COL */
-  .two-col{display:grid;grid-template-columns:1fr 300px;gap:18px}
-  .panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
-  .panel-title{font-size:14px;font-weight:700;margin-bottom:14px}
-  .act-item{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid var(--surface)}
-  .act-item:last-child{border-bottom:none}
-  .act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-  .act-text{font-size:13px;font-weight:500}
-  .act-time{font-size:11px;color:var(--text-muted);margin-top:1px}
-  .act-status{font-size:11px;color:var(--text-muted);margin-left:auto}
-  .qs-item{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--surface)}
-  .qs-item:last-child{border-bottom:none}
-  .qs-label{font-size:13px;color:var(--text-muted);display:flex;align-items:center;gap:8px}
-  .qs-dot{width:9px;height:9px;border-radius:50%}
-  .qs-val{font-size:15px;font-weight:700}
+      /* ══ CRUD S3 PAGE ══ */
+      .crud-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .crud-header h2 {
+        font-size: 17px;
+        font-weight: 700;
+      }
+      .crud-header p {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+      .btn-primary {
+        padding: 10px 18px;
+        background: var(--green);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+      }
+      .btn-primary:hover {
+        background: var(--green-dark);
+        transform: translateY(-1px);
+      }
 
-  /* TOAST */
-  .toast-box{position:fixed;bottom:20px;right:20px;z-index:999;display:flex;flex-direction:column;gap:8px}
-  .toast{background:var(--text);color:#fff;padding:11px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;display:flex;align-items:center;gap:9px;animation:tin .28s ease,tout .28s ease 2.7s forwards;max-width:340px}
-  .toast.success{background:var(--green-dark)}
-  .toast.error{background:var(--red)}
-  @keyframes tin{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
-  @keyframes tout{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(16px)}}
+      /* Upload zone besar */
+      .crud-upload-zone {
+        border: 2px dashed var(--border);
+        border-radius: var(--radius);
+        padding: 36px 24px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        background: var(--white);
+        margin-bottom: 20px;
+      }
+      .crud-upload-zone:hover,
+      .crud-upload-zone.drag {
+        border-color: var(--green);
+        background: var(--green-light);
+      }
+      .crud-upload-zone input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+      }
+      .cuz-icon {
+        font-size: 40px;
+        margin-bottom: 12px;
+      }
+      .cuz-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .cuz-hint {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+      .cuz-hint span {
+        color: var(--green);
+        font-weight: 600;
+      }
 
-  .menu-btn{display:none}
-  @media(max-width:900px){
-    .sidebar{transform:translateX(-100%)}
-    .sidebar.open{transform:translateX(0)}
-    .main{margin-left:0}
-    .menu-btn{display:flex}
-    .stats-grid{grid-template-columns:repeat(2,1fr)}
-    .services-grid{grid-template-columns:repeat(2,1fr)}
-    .two-panel,.two-col{grid-template-columns:1fr}
-  }
-  @media(max-width:560px){
-    .services-grid{grid-template-columns:1fr}
-    .content{padding:16px}
-    .topbar{padding:0 14px}
-    .upload-multi{grid-template-columns:1fr}
-    .row2{grid-template-columns:1fr}
-  }
-</style>
-</head>
-<body>
-<div class="layout">
+      /* File grid */
+      .file-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      .file-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: all 0.25s;
+        position: relative;
+      }
+      .file-card:hover {
+        border-color: var(--green);
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-2px);
+      }
+      .file-thumb {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+        display: block;
+        background: var(--surface);
+      }
+      .file-thumb-pdf {
+        width: 100%;
+        height: 130px;
+        background: linear-gradient(135deg, #f0f4ff, #e3ecfb);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+      }
+      .file-thumb-doc {
+        width: 100%;
+        height: 130px;
+        background: linear-gradient(135deg, #fff5f0, #fce9e3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+      }
+      .file-thumb-other {
+        width: 100%;
+        height: 130px;
+        background: linear-gradient(135deg, #f5f0ff, #ede9fd);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+      }
+      .file-body {
+        padding: 12px 14px;
+      }
+      .file-name {
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 4px;
+      }
+      .file-meta {
+        font-size: 11px;
+        color: var(--text-muted);
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .file-actions {
+        display: flex;
+        gap: 6px;
+      }
+      .fa-btn {
+        flex: 1;
+        padding: 7px 6px;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1.5px solid var(--border);
+        background: var(--surface);
+        color: var(--text-muted);
+        transition: all 0.2s;
+        text-align: center;
+      }
+      .fa-btn.view {
+        border-color: #a8e6ce;
+        color: var(--green-dark);
+        background: var(--green-light);
+      }
+      .fa-btn.view:hover {
+        background: var(--green);
+        color: #fff;
+      }
+      .fa-btn.edit {
+        border-color: #b5d4f4;
+        color: var(--blue);
+        background: var(--blue-light);
+      }
+      .fa-btn.edit:hover {
+        background: var(--blue);
+        color: #fff;
+      }
+      .fa-btn.del {
+        border-color: #ffc9c9;
+        color: var(--red);
+        background: var(--red-light);
+      }
+      .fa-btn.del:hover {
+        background: var(--red);
+        color: #fff;
+      }
+      .file-type-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 3px 8px;
+        border-radius: var(--radius-pill);
+        font-size: 10px;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--text);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .s3-url-tag {
+        font-size: 10px;
+        color: var(--green-dark);
+        background: var(--green-light);
+        padding: 3px 8px;
+        border-radius: var(--radius-pill);
+        display: inline-block;
+        margin-top: 4px;
+        word-break: break-all;
+        max-width: 100%;
+      }
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-mark">
-      <div class="logo-icon">🏛️</div>
-      <div class="logo-text">Si<span>Pelayan</span></div>
-    </div>
-    <p style="font-size:11px;color:var(--text-muted);margin-top:5px">Portal Layanan Publik Digital</p>
-  </div>
-  <nav class="sidebar-nav">
-    <div class="nav-label">Menu Utama</div>
-    <div class="nav-item active" onclick="go('dashboard',this)"><span class="nav-icon">📊</span>Dashboard</div>
-    <div class="nav-item" onclick="go('layanan',this)"><span class="nav-icon">📄</span>Layanan Surat<span class="nav-badge">6</span></div>
-    <div class="nav-label">Warga</div>
-    <div class="nav-item" onclick="go('status',this)"><span class="nav-icon">🔍</span>Status Layanan</div>
-    <div class="nav-item" onclick="go('pengaduan',this)"><span class="nav-icon">📢</span>Pengaduan<span class="nav-badge" style="background:var(--red)" id="peng-nav-badge">!</span></div>
-    <div class="nav-label">Sistem</div>
-    <div class="nav-item" onclick="go('koneksi',this)"><span class="nav-icon">☁️</span>Koneksi AWS</div>
-  </nav>
-  <div class="sidebar-footer">
-    <div class="user-pill">
-      <div class="user-avatar">BW</div>
-      <div>
-        <div class="user-name">Budi Wicaksono</div>
-        <div class="user-role">Warga · Bandung</div>
+      /* Filter bar */
+      .filter-bar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .filter-pill {
+        padding: 6px 14px;
+        border-radius: var(--radius-pill);
+        font-size: 12px;
+        font-weight: 600;
+        border: 1.5px solid var(--border);
+        cursor: pointer;
+        color: var(--text-muted);
+        background: var(--white);
+        transition: all 0.2s;
+      }
+      .filter-pill.active {
+        background: var(--green);
+        color: #fff;
+        border-color: var(--green);
+      }
+      .filter-pill:hover:not(.active) {
+        border-color: var(--green);
+        color: var(--green);
+      }
+      .crud-search {
+        flex: 1;
+        min-width: 180px;
+        padding: 8px 14px;
+        background: var(--white);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius-pill);
+        font-size: 13px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: var(--text);
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .crud-search:focus {
+        border-color: var(--green);
+      }
+
+      /* Progress */
+      .crud-progress {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 20px;
+        margin-bottom: 16px;
+        display: none;
+      }
+      .crud-progress.show {
+        display: block;
+        animation: fadeUp 0.3s ease;
+      }
+      .cp-name {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .cp-bar-track {
+        height: 6px;
+        background: var(--surface);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .cp-bar-fill {
+        height: 100%;
+        background: var(--green);
+        border-radius: 6px;
+        width: 0;
+        transition: width 0.25s;
+      }
+      .cp-label {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 6px;
+      }
+
+      /* Confirm overlay */
+      .confirm-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 40, 30, 0.5);
+        z-index: 300;
+        align-items: center;
+        justify-content: center;
+      }
+      .confirm-overlay.open {
+        display: flex;
+        animation: fadeIn 0.2s;
+      }
+      .confirm-box {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 28px;
+        max-width: 420px;
+        width: 90%;
+        animation: slideUp 0.28s ease;
+        text-align: center;
+      }
+      .confirm-icon {
+        font-size: 40px;
+        margin-bottom: 14px;
+      }
+      .confirm-title {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .confirm-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 22px;
+        line-height: 1.5;
+      }
+      .confirm-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      /* Edit modal */
+      .edit-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 40, 30, 0.5);
+        z-index: 300;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 40px 16px;
+        overflow-y: auto;
+      }
+      .edit-overlay.open {
+        display: flex;
+        animation: fadeIn 0.2s;
+      }
+      .edit-modal {
+        background: var(--white);
+        border-radius: 20px;
+        width: 100%;
+        max-width: 500px;
+        padding: 28px;
+        animation: slideUp 0.28s ease;
+      }
+
+      /* View modal */
+      .view-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 40, 30, 0.8);
+        z-index: 300;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .view-overlay.open {
+        display: flex;
+        animation: fadeIn 0.2s;
+      }
+      .view-modal {
+        background: var(--white);
+        border-radius: 20px;
+        max-width: 700px;
+        width: 100%;
+        overflow: hidden;
+        animation: slideUp 0.28s ease;
+      }
+      .view-img {
+        width: 100%;
+        max-height: 420px;
+        object-fit: contain;
+        background: #1a2b24;
+        display: block;
+      }
+      .view-info {
+        padding: 20px 24px;
+      }
+      .view-info h3 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .view-meta-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .view-meta-item label {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: block;
+        margin-bottom: 3px;
+      }
+      .view-meta-item span {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .s3-full-url {
+        font-size: 11px;
+        word-break: break-all;
+        color: var(--green-dark);
+        background: var(--green-light);
+        padding: 8px 12px;
+        border-radius: var(--radius-sm);
+        display: block;
+        margin-top: 4px;
+      }
+
+      /* TOAST */
+      .toast-box {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .toast {
+        background: var(--text);
+        color: #fff;
+        padding: 11px 18px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        animation:
+          tin 0.28s ease,
+          tout 0.28s ease 2.7s forwards;
+        max-width: 340px;
+      }
+      .toast.success {
+        background: var(--green-dark);
+      }
+      .toast.error {
+        background: var(--red);
+      }
+      @keyframes tin {
+        from {
+          opacity: 0;
+          transform: translateX(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes tout {
+        from {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateX(16px);
+        }
+      }
+
+      .menu-btn {
+        display: none;
+      }
+      @media (max-width: 900px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        .main {
+          margin-left: 0;
+        }
+        .menu-btn {
+          display: flex;
+        }
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .two-panel,
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .file-grid {
+          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        }
+      }
+      @media (max-width: 560px) {
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .content {
+          padding: 16px;
+        }
+        .topbar {
+          padding: 0 14px;
+        }
+        .upload-multi {
+          grid-template-columns: 1fr;
+        }
+        .row2 {
+          grid-template-columns: 1fr;
+        }
+        .file-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .view-meta-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+          <div class="logo-mark">
+            <div class="logo-icon">🏛️</div>
+            <div class="logo-text">Si<span>Pelayan</span></div>
+          </div>
+          <p style="font-size: 11px; color: var(--text-muted); margin-top: 5px">
+            Portal Layanan Publik Digital
+          </p>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-label">Menu Utama</div>
+          <div class="nav-item active" onclick="go('dashboard', this)">
+            <span class="nav-icon">📊</span>Dashboard
+          </div>
+          <div class="nav-item" onclick="go('layanan', this)">
+            <span class="nav-icon">📄</span>Layanan Surat<span class="nav-badge"
+              >6</span
+            >
+          </div>
+          <div class="nav-label">Warga</div>
+          <div class="nav-item" onclick="go('status', this)">
+            <span class="nav-icon">🔍</span>Status Layanan
+          </div>
+          <div class="nav-item" onclick="go('pengaduan', this)">
+            <span class="nav-icon">📢</span>Pengaduan<span
+              class="nav-badge"
+              style="background: var(--red)"
+              id="peng-nav-badge"
+              >!</span
+            >
+          </div>
+          <div class="nav-label">AWS Cloud</div>
+          <div class="nav-item" onclick="go('crud', this)">
+            <span class="nav-icon">☁️</span>Kelola File S3<span
+              class="nav-badge"
+              id="crud-nav-badge"
+              >0</span
+            >
+          </div>
+          <div class="nav-item" onclick="go('koneksi', this)">
+            <span class="nav-icon">🔌</span>Koneksi AWS
+          </div>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-pill">
+            <div class="user-avatar">BW</div>
+            <div>
+              <div class="user-name">Budi Wicaksono</div>
+              <div class="user-role">Warga · Bandung</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <div class="main">
+        <header class="topbar">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <button
+              class="icon-btn menu-btn"
+              onclick="
+                document.getElementById('sidebar').classList.toggle('open')
+              "
+            >
+              ☰
+            </button>
+            <div>
+              <h1 id="topbar-title">Dashboard</h1>
+              <p id="topbar-sub">
+                Selamat datang di portal layanan publik digital
+              </p>
+            </div>
+          </div>
+          <div class="topbar-right">
+            <button class="icon-btn" onclick="runHealthCheck(true)">🔄</button>
+            <button class="icon-btn">
+              🔔
+              <div class="notif-dot" id="ndot"></div>
+            </button>
+          </div>
+        </header>
+
+        <main class="content">
+          <!-- ══ DASHBOARD ══ -->
+          <div class="page active" id="page-dashboard">
+            <div class="aws-banner checking" id="aws-banner">
+              <div class="aws-dot spin" id="aws-main-dot"></div>
+              <div>
+                <div class="aws-label" id="aws-banner-label">
+                  Memeriksa koneksi AWS…
+                </div>
+                <div class="aws-sub" id="aws-banner-sub">
+                  Menghubungkan ke RDS &amp; S3
+                </div>
+              </div>
+              <div class="aws-chips" id="aws-chips">
+                <div class="aws-chip wait">
+                  <div class="chip-dot"></div>
+                  RDS
+                </div>
+                <div class="aws-chip wait">
+                  <div class="chip-dot"></div>
+                  S3
+                </div>
+              </div>
+              <button class="check-btn" onclick="runHealthCheck(true)">
+                Cek Ulang
+              </button>
+            </div>
+            <div class="stats-grid">
+              <div class="stat-card green">
+                <div class="stat-icon">📄</div>
+                <div class="stat-num" id="d-total">0</div>
+                <div class="stat-label">Total Pengajuan</div>
+              </div>
+              <div class="stat-card amber">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-num" id="d-proses">0</div>
+                <div class="stat-label">Sedang Diproses</div>
+              </div>
+              <div class="stat-card blue">
+                <div class="stat-icon">☁️</div>
+                <div class="stat-num" id="d-s3files">0</div>
+                <div class="stat-label">File di S3</div>
+              </div>
+              <div class="stat-card red">
+                <div class="stat-icon">📢</div>
+                <div class="stat-num" id="d-peng">0</div>
+                <div class="stat-label">Pengaduan</div>
+              </div>
+            </div>
+            <div class="two-col">
+              <div class="panel">
+                <div class="panel-title">Aktivitas Terbaru</div>
+                <div id="act-list">
+                  <div class="empty" style="border: none; padding: 20px">
+                    <div class="empty-ico">📭</div>
+                    <div class="empty-title">Belum ada aktivitas</div>
+                    <div class="empty-desc">Buat pengajuan pertama Anda</div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-title">Ringkasan Status</div>
+                <div>
+                  <div class="qs-item">
+                    <span class="qs-label"
+                      ><span
+                        class="qs-dot"
+                        style="background: var(--amber)"
+                      ></span
+                      >Menunggu</span
+                    ><span class="qs-val" id="qs-m">0</span>
+                  </div>
+                  <div class="qs-item">
+                    <span class="qs-label"
+                      ><span
+                        class="qs-dot"
+                        style="background: var(--blue)"
+                      ></span
+                      >Diproses</span
+                    ><span class="qs-val" id="qs-p">0</span>
+                  </div>
+                  <div class="qs-item">
+                    <span class="qs-label"
+                      ><span
+                        class="qs-dot"
+                        style="background: var(--green)"
+                      ></span
+                      >File S3</span
+                    ><span class="qs-val" id="qs-s">0</span>
+                  </div>
+                  <div class="qs-item">
+                    <span class="qs-label"
+                      ><span
+                        class="qs-dot"
+                        style="background: var(--red)"
+                      ></span
+                      >Pengaduan</span
+                    ><span class="qs-val" id="qs-pg">0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══ LAYANAN ══ -->
+          <div class="page" id="page-layanan">
+            <div style="margin-bottom: 16px">
+              <div style="font-size: 15px; font-weight: 700">
+                Pilih Layanan Surat
+              </div>
+              <div style="font-size: 13px; color: var(--text-muted)">
+                Klik layanan untuk mengisi formulir + upload dokumen
+              </div>
+            </div>
+            <div class="services-grid">
+              <div class="svc-card featured" onclick="openModal('domisili')">
+                <span class="pop-badge">Populer</span>
+                <div class="svc-emoji">🏠</div>
+                <div class="svc-name">Surat Domisili</div>
+                <div class="svc-desc">
+                  Keterangan domisili resmi dari kelurahan setempat
+                </div>
+                <div class="svc-meta">
+                  <span>⏱ 1–2 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+              <div class="svc-card" onclick="openModal('usaha')">
+                <div class="svc-emoji">🏪</div>
+                <div class="svc-name">Surat Ket. Usaha</div>
+                <div class="svc-desc">
+                  Izin keterangan usaha untuk UMKM dan perizinan
+                </div>
+                <div class="svc-meta">
+                  <span>⏱ 2–3 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+              <div class="svc-card" onclick="openModal('ktp')">
+                <div class="svc-emoji">🪪</div>
+                <div class="svc-name">Pengurusan KTP</div>
+                <div class="svc-desc">
+                  KTP baru, hilang, rusak, atau perubahan data
+                </div>
+                <div class="svc-meta">
+                  <span>⏱ 3–5 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+              <div class="svc-card" onclick="openModal('kk')">
+                <div class="svc-emoji">👨‍👩‍👧‍👦</div>
+                <div class="svc-name">Kartu Keluarga</div>
+                <div class="svc-desc">
+                  Pembuatan atau perubahan data kartu keluarga
+                </div>
+                <div class="svc-meta">
+                  <span>⏱ 3–5 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+              <div class="svc-card" onclick="openModal('nikah')">
+                <div class="svc-emoji">💍</div>
+                <div class="svc-name">Surat Ket. Nikah</div>
+                <div class="svc-desc">
+                  Surat belum menikah atau pengantar nikah
+                </div>
+                <div class="svc-meta">
+                  <span>⏱ 1–2 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+              <div class="svc-card" onclick="openModal('pindah')">
+                <div class="svc-emoji">📦</div>
+                <div class="svc-name">Surat Pindah</div>
+                <div class="svc-desc">
+                  Keterangan pindah domisili antar kelurahan/kota
+                </div>
+                <div class="svc-meta">
+                  <span>⏱ 2–4 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══ STATUS ══ -->
+          <div class="page" id="page-status">
+            <div class="search-bar">
+              <input
+                class="search-input"
+                id="search-in"
+                placeholder="🔍  Cari nomor tiket atau nama layanan…"
+                oninput="renderTickets()"
+              />
+              <button class="search-btn" onclick="renderTickets()">Cari</button>
+            </div>
+            <div class="ticket-list" id="ticket-list">
+              <div class="empty">
+                <div class="empty-ico">📋</div>
+                <div class="empty-title">Belum ada pengajuan</div>
+                <div class="empty-desc">
+                  Buat pengajuan di menu Layanan Surat
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══ PENGADUAN ══ -->
+          <div class="page" id="page-pengaduan">
+            <div class="two-panel">
+              <div class="form-card">
+                <h2>📢 Sampaikan Pengaduan</h2>
+                <p>
+                  Kami berkomitmen menindaklanjuti setiap pengaduan dalam 1×24
+                  jam hari kerja. Sertakan foto bukti untuk mempercepat proses.
+                </p>
+                <div class="fg">
+                  <label class="fl"
+                    >Nama Pelapor <span class="req">*</span></label
+                  ><input
+                    class="fi"
+                    id="pnama"
+                    placeholder="Nama lengkap Anda"
+                  />
+                </div>
+                <div class="row2">
+                  <div class="fg">
+                    <label class="fl">Nomor HP <span class="req">*</span></label
+                    ><input class="fi" id="php" placeholder="08xxxxxxxxxx" />
+                  </div>
+                  <div class="fg">
+                    <label class="fl">RT/RW</label
+                    ><input class="fi" id="prt" placeholder="RT 03/RW 07" />
+                  </div>
+                </div>
+                <div class="fg">
+                  <label class="fl">Kategori <span class="req">*</span></label>
+                  <select class="fs" id="pkat">
+                    <option value="">-- Pilih kategori --</option>
+                    <option>Pelayanan lambat / tidak memuaskan</option>
+                    <option>Informasi tidak jelas</option>
+                    <option>Infrastruktur jalan rusak</option>
+                    <option>Kebersihan lingkungan</option>
+                    <option>Keamanan &amp; ketertiban</option>
+                    <option>Fasilitas umum bermasalah</option>
+                    <option>Lainnya</option>
+                  </select>
+                </div>
+                <div class="fg">
+                  <label class="fl">Lokasi Kejadian</label
+                  ><input
+                    class="fi"
+                    id="plok"
+                    placeholder="Nama jalan, kelurahan, atau area"
+                  />
+                </div>
+                <div class="fg">
+                  <label class="fl"
+                    >Uraian Pengaduan <span class="req">*</span></label
+                  ><textarea
+                    class="ft"
+                    id="puraian"
+                    placeholder="Jelaskan pengaduan secara lengkap…"
+                    oninput="
+                      document.getElementById('pcc').textContent = Math.min(
+                        this.value.length,
+                        500,
+                      )
+                    "
+                  ></textarea>
+                  <div class="char-count"><span id="pcc">0</span>/500</div>
+                </div>
+                <div class="fg">
+                  <label class="fl">Foto Bukti</label>
+                  <div class="upload-multi">
+                    <div>
+                      <div
+                        class="upload-zone"
+                        id="uz-pb1"
+                        ondragover="dragOver(event, 'uz-pb1')"
+                        ondragleave="dragLeave('uz-pb1')"
+                        ondrop="dropFile(event, 'pb1-input', 'uz-pb1')"
+                      >
+                        <input
+                          type="file"
+                          id="pb1-input"
+                          accept="image/jpeg,image/png,image/webp"
+                          onchange="handleFile(this, 'uz-pb1', 'prev-pb1')"
+                        />
+                        <div class="upload-icon">📸</div>
+                        <div class="upload-title">Foto Bukti 1</div>
+                        <div class="upload-hint">
+                          JPG, PNG, WEBP · maks 5 MB
+                        </div>
+                      </div>
+                      <div class="upload-preview" id="prev-pb1">
+                        <img id="img-pb1" src="" />
+                        <div class="preview-name" id="pn-pb1"></div>
+                        <button
+                          class="remove-file"
+                          onclick="clearFile('pb1-input', 'prev-pb1', 'uz-pb1')"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        class="upload-zone"
+                        id="uz-pb2"
+                        ondragover="dragOver(event, 'uz-pb2')"
+                        ondragleave="dragLeave('uz-pb2')"
+                        ondrop="dropFile(event, 'pb2-input', 'uz-pb2')"
+                      >
+                        <input
+                          type="file"
+                          id="pb2-input"
+                          accept="image/jpeg,image/png,image/webp"
+                          onchange="handleFile(this, 'uz-pb2', 'prev-pb2')"
+                        />
+                        <div class="upload-icon">📷</div>
+                        <div class="upload-title">Foto Bukti 2</div>
+                        <div class="upload-hint">Opsional · maks 5 MB</div>
+                      </div>
+                      <div class="upload-preview" id="prev-pb2">
+                        <img id="img-pb2" src="" />
+                        <div class="preview-name" id="pn-pb2"></div>
+                        <button
+                          class="remove-file"
+                          onclick="clearFile('pb2-input', 'prev-pb2', 'uz-pb2')"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="upload-progress" id="prog-pengaduan">
+                    <div class="upload-bar-track">
+                      <div class="upload-bar-fill" id="bar-pengaduan"></div>
+                    </div>
+                    <div class="upload-bar-label" id="bar-label-pengaduan">
+                      Mengupload ke S3…
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="btn-submit"
+                  style="width: 100%; margin-top: 4px"
+                  id="btn-peng"
+                  onclick="submitPengaduan()"
+                >
+                  Kirim Pengaduan ✉️
+                </button>
+              </div>
+              <div>
+                <div class="info-card">
+                  <h3>Informasi</h3>
+                  <div class="info-item">
+                    <div class="info-ico">⏱</div>
+                    <div>
+                      <h4>Waktu Respon</h4>
+                      <p>Ditanggapi dalam 1×24 jam hari kerja</p>
+                    </div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-ico">🔒</div>
+                    <div>
+                      <h4>Kerahasiaan</h4>
+                      <p>Identitas pelapor dijaga sesuai peraturan</p>
+                    </div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-ico">☁️</div>
+                    <div>
+                      <h4>Upload ke S3</h4>
+                      <p>Foto bukti disimpan aman di Amazon S3</p>
+                    </div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-ico">📞</div>
+                    <div>
+                      <h4>Hotline</h4>
+                      <p>0800-1234-567 (bebas pulsa)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══ CRUD S3 ══ -->
+          <div class="page" id="page-crud">
+            <!-- Header -->
+            <div class="crud-header">
+              <div>
+                <h2>☁️ Kelola File Amazon S3</h2>
+                <p>
+                  Upload, lihat, edit nama, dan hapus file langsung dari bucket
+                  S3 — bukti integrasi cloud berjalan
+                </p>
+              </div>
+              <button
+                class="btn-primary"
+                onclick="document.getElementById('crud-file-input').click()"
+              >
+                + Upload File Baru
+              </button>
+            </div>
+
+            <!-- Upload zone besar -->
+            <div
+              class="crud-upload-zone"
+              id="crud-uz"
+              ondragover="crudDragOver(event)"
+              ondragleave="crudDragLeave()"
+              ondrop="crudDrop(event)"
+            >
+              <input
+                type="file"
+                id="crud-file-input"
+                multiple
+                accept="image/*,application/pdf,.doc,.docx"
+                onchange="crudUpload(this.files)"
+              />
+              <div class="cuz-icon">🪣</div>
+              <div class="cuz-title">
+                Tarik file ke sini atau klik untuk memilih
+              </div>
+              <div class="cuz-hint">
+                Format: JPG, PNG, WEBP, PDF · Maks <span>5 MB</span> per file ·
+                Multi-file didukung<br />File akan langsung tersimpan di
+                <span>Amazon S3 Bucket</span> dan dicatat di RDS
+              </div>
+            </div>
+
+            <!-- Upload progress -->
+            <div class="crud-progress" id="crud-progress">
+              <div class="cp-name" id="cp-name">Mengupload…</div>
+              <div class="cp-bar-track">
+                <div class="cp-bar-fill" id="cp-bar"></div>
+              </div>
+              <div class="cp-label" id="cp-label">Menghubungi S3…</div>
+            </div>
+
+            <!-- Filter + Search -->
+            <div class="filter-bar">
+              <input
+                class="crud-search"
+                id="crud-search"
+                placeholder="🔍 Cari nama file…"
+                oninput="renderCrud()"
+              />
+              <div
+                class="filter-pill active"
+                onclick="setFilter(this, 'semua')"
+              >
+                Semua
+              </div>
+              <div class="filter-pill" onclick="setFilter(this, 'gambar')">
+                🖼️ Gambar
+              </div>
+              <div class="filter-pill" onclick="setFilter(this, 'pdf')">
+                📄 PDF
+              </div>
+              <div class="filter-pill" onclick="setFilter(this, 'dokumen')">
+                📝 Dokumen
+              </div>
+            </div>
+
+            <!-- File grid -->
+            <div class="file-grid" id="crud-grid">
+              <div class="empty" style="grid-column: 1/-1">
+                <div class="empty-ico">🪣</div>
+                <div class="empty-title">Bucket S3 kosong</div>
+                <div class="empty-desc">
+                  Upload file pertama Anda menggunakan zona di atas
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══ KONEKSI AWS ══ -->
+          <div class="page" id="page-koneksi">
+            <div style="max-width: 680px">
+              <div class="panel" style="margin-bottom: 16px">
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 16px;
+                  "
+                >
+                  <div style="display: flex; align-items: center; gap: 12px">
+                    <div style="font-size: 28px">🗄️</div>
+                    <div>
+                      <div style="font-size: 15px; font-weight: 700">
+                        Amazon RDS
+                      </div>
+                      <div style="font-size: 12px; color: var(--text-muted)">
+                        MySQL / PostgreSQL Database
+                      </div>
+                    </div>
+                  </div>
+                  <div id="rds-badge" class="aws-chip wait">
+                    <div class="chip-dot"></div>
+                    Memeriksa…
+                  </div>
+                </div>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 10px;
+                  "
+                >
+                  <div
+                    style="
+                      background: var(--surface);
+                      border-radius: var(--radius-sm);
+                      padding: 12px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--text-muted);
+                        margin-bottom: 4px;
+                      "
+                    >
+                      STATUS
+                    </div>
+                    <div
+                      style="font-size: 14px; font-weight: 700"
+                      id="rds-status"
+                    >
+                      —
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      background: var(--surface);
+                      border-radius: var(--radius-sm);
+                      padding: 12px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--text-muted);
+                        margin-bottom: 4px;
+                      "
+                    >
+                      LATENCY
+                    </div>
+                    <div
+                      style="font-size: 14px; font-weight: 700"
+                      id="rds-latency"
+                    >
+                      —
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      background: var(--surface);
+                      border-radius: var(--radius-sm);
+                      padding: 12px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--text-muted);
+                        margin-bottom: 4px;
+                      "
+                    >
+                      ENGINE
+                    </div>
+                    <div
+                      style="font-size: 14px; font-weight: 700"
+                      id="rds-engine"
+                    >
+                      —
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    margin-top: 12px;
+                    padding: 10px 14px;
+                    background: var(--surface);
+                    border-radius: var(--radius-sm);
+                    font-size: 12px;
+                    color: var(--text-muted);
+                  "
+                >
+                  Host:
+                  <span
+                    id="rds-host"
+                    style="font-family: monospace; color: var(--text)"
+                    >—</span
+                  >
+                </div>
+              </div>
+              <div class="panel" style="margin-bottom: 16px">
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 16px;
+                  "
+                >
+                  <div style="display: flex; align-items: center; gap: 12px">
+                    <div style="font-size: 28px">🪣</div>
+                    <div>
+                      <div style="font-size: 15px; font-weight: 700">
+                        Amazon S3
+                      </div>
+                      <div style="font-size: 12px; color: var(--text-muted)">
+                        Object Storage untuk File Upload
+                      </div>
+                    </div>
+                  </div>
+                  <div id="s3-badge" class="aws-chip wait">
+                    <div class="chip-dot"></div>
+                    Memeriksa…
+                  </div>
+                </div>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 10px;
+                  "
+                >
+                  <div
+                    style="
+                      background: var(--surface);
+                      border-radius: var(--radius-sm);
+                      padding: 12px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--text-muted);
+                        margin-bottom: 4px;
+                      "
+                    >
+                      STATUS
+                    </div>
+                    <div
+                      style="font-size: 14px; font-weight: 700"
+                      id="s3-status"
+                    >
+                      —
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      background: var(--surface);
+                      border-radius: var(--radius-sm);
+                      padding: 12px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--text-muted);
+                        margin-bottom: 4px;
+                      "
+                    >
+                      BUCKET
+                    </div>
+                    <div
+                      style="font-size: 14px; font-weight: 700"
+                      id="s3-bucket"
+                    >
+                      —
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      background: var(--surface);
+                      border-radius: var(--radius-sm);
+                      padding: 12px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--text-muted);
+                        margin-bottom: 4px;
+                      "
+                    >
+                      REGION
+                    </div>
+                    <div
+                      style="font-size: 14px; font-weight: 700"
+                      id="s3-region"
+                    >
+                      —
+                    </div>
+                  </div>
+                </div>
+                <div style="margin-top: 14px">
+                  <div
+                    style="
+                      font-size: 13px;
+                      font-weight: 600;
+                      margin-bottom: 10px;
+                    "
+                  >
+                    File Terupload ke S3 (dari CRUD)
+                  </div>
+                  <div id="s3-uploads-list">
+                    <div
+                      style="
+                        font-size: 13px;
+                        color: var(--text-muted);
+                        text-align: center;
+                        padding: 16px;
+                      "
+                    >
+                      Belum ada file diupload
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 10px">
+                <button
+                  class="btn-submit"
+                  style="flex: 1; max-width: 200px"
+                  onclick="runHealthCheck(true)"
+                >
+                  🔄 Cek Koneksi
+                </button>
+                <button
+                  class="btn-ghost"
+                  style="flex: 1; max-width: 200px"
+                  onclick="go('crud', null)"
+                >
+                  ☁️ Kelola File S3
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
     </div>
-  </div>
-</aside>
 
-<!-- MAIN -->
-<div class="main">
-  <header class="topbar">
-    <div style="display:flex;align-items:center;gap:12px">
-      <button class="icon-btn menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-      <div><h1 id="topbar-title">Dashboard</h1><p id="topbar-sub">Selamat datang di portal layanan publik digital</p></div>
-    </div>
-    <div class="topbar-right">
-      <button class="icon-btn" onclick="runHealthCheck(true)">🔄</button>
-      <button class="icon-btn">🔔<div class="notif-dot" id="ndot"></div></button>
-    </div>
-  </header>
-
-  <main class="content">
-
-    <!-- ══ DASHBOARD ══ -->
-    <div class="page active" id="page-dashboard">
-
-      <!-- AWS Status Banner -->
-      <div class="aws-banner checking" id="aws-banner">
-        <div class="aws-dot spin" id="aws-main-dot"></div>
-        <div>
-          <div class="aws-label" id="aws-banner-label">Memeriksa koneksi AWS…</div>
-          <div class="aws-sub" id="aws-banner-sub">Menghubungkan ke RDS &amp; S3</div>
-        </div>
-        <div class="aws-chips" id="aws-chips">
-          <div class="aws-chip wait"><div class="chip-dot"></div>RDS</div>
-          <div class="aws-chip wait"><div class="chip-dot"></div>S3</div>
-        </div>
-        <button class="check-btn" onclick="runHealthCheck(true)">Cek Ulang</button>
-      </div>
-
-      <div class="stats-grid">
-        <div class="stat-card green"><div class="stat-icon">📄</div><div class="stat-num" id="d-total">0</div><div class="stat-label">Total Pengajuan</div></div>
-        <div class="stat-card amber"><div class="stat-icon">⏳</div><div class="stat-num" id="d-proses">0</div><div class="stat-label">Sedang Diproses</div></div>
-        <div class="stat-card blue"><div class="stat-icon">✅</div><div class="stat-num" id="d-selesai">0</div><div class="stat-label">Selesai</div></div>
-        <div class="stat-card red"><div class="stat-icon">📢</div><div class="stat-num" id="d-peng">0</div><div class="stat-label">Pengaduan</div></div>
-      </div>
-
-      <div class="two-col">
-        <div class="panel">
-          <div class="panel-title">Aktivitas Terbaru</div>
-          <div id="act-list"><div class="empty" style="border:none;padding:20px"><div class="empty-ico">📭</div><div class="empty-title">Belum ada aktivitas</div><div class="empty-desc">Buat pengajuan pertama Anda</div></div></div>
-        </div>
-        <div class="panel">
-          <div class="panel-title">Ringkasan Status</div>
+    <!-- ══ MODAL PENGAJUAN ══ -->
+    <div
+      class="overlay"
+      id="overlay"
+      onclick="if (event.target === this) closeModal();"
+    >
+      <div class="modal">
+        <div class="modal-head">
           <div>
-            <div class="qs-item"><span class="qs-label"><span class="qs-dot" style="background:var(--amber)"></span>Menunggu</span><span class="qs-val" id="qs-m">0</span></div>
-            <div class="qs-item"><span class="qs-label"><span class="qs-dot" style="background:var(--blue)"></span>Diproses</span><span class="qs-val" id="qs-p">0</span></div>
-            <div class="qs-item"><span class="qs-label"><span class="qs-dot" style="background:var(--green)"></span>Selesai</span><span class="qs-val" id="qs-s">0</span></div>
-            <div class="qs-item"><span class="qs-label"><span class="qs-dot" style="background:var(--red)"></span>Pengaduan</span><span class="qs-val" id="qs-pg">0</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ LAYANAN ══ -->
-    <div class="page" id="page-layanan">
-      <div style="margin-bottom:16px"><div style="font-size:15px;font-weight:700">Pilih Layanan Surat</div><div style="font-size:13px;color:var(--text-muted)">Klik layanan untuk mengisi formulir + upload dokumen</div></div>
-      <div class="services-grid">
-        <div class="svc-card featured" onclick="openModal('domisili')"><span class="pop-badge">Populer</span><div class="svc-emoji">🏠</div><div class="svc-name">Surat Domisili</div><div class="svc-desc">Keterangan domisili resmi dari kelurahan setempat</div><div class="svc-meta"><span>⏱ 1–2 hari kerja</span><div class="svc-arrow">→</div></div></div>
-        <div class="svc-card" onclick="openModal('usaha')"><div class="svc-emoji">🏪</div><div class="svc-name">Surat Ket. Usaha</div><div class="svc-desc">Izin keterangan usaha untuk UMKM dan perizinan</div><div class="svc-meta"><span>⏱ 2–3 hari kerja</span><div class="svc-arrow">→</div></div></div>
-        <div class="svc-card" onclick="openModal('ktp')"><div class="svc-emoji">🪪</div><div class="svc-name">Pengurusan KTP</div><div class="svc-desc">KTP baru, hilang, rusak, atau perubahan data</div><div class="svc-meta"><span>⏱ 3–5 hari kerja</span><div class="svc-arrow">→</div></div></div>
-        <div class="svc-card" onclick="openModal('kk')"><div class="svc-emoji">👨‍👩‍👧‍👦</div><div class="svc-name">Kartu Keluarga</div><div class="svc-desc">Pembuatan atau perubahan data kartu keluarga</div><div class="svc-meta"><span>⏱ 3–5 hari kerja</span><div class="svc-arrow">→</div></div></div>
-        <div class="svc-card" onclick="openModal('nikah')"><div class="svc-emoji">💍</div><div class="svc-name">Surat Ket. Nikah</div><div class="svc-desc">Surat belum menikah atau pengantar nikah</div><div class="svc-meta"><span>⏱ 1–2 hari kerja</span><div class="svc-arrow">→</div></div></div>
-        <div class="svc-card" onclick="openModal('pindah')"><div class="svc-emoji">📦</div><div class="svc-name">Surat Pindah</div><div class="svc-desc">Keterangan pindah domisili antar kelurahan/kota</div><div class="svc-meta"><span>⏱ 2–4 hari kerja</span><div class="svc-arrow">→</div></div></div>
-      </div>
-    </div>
-
-    <!-- ══ STATUS ══ -->
-    <div class="page" id="page-status">
-      <div class="search-bar">
-        <input class="search-input" id="search-in" placeholder="🔍  Cari nomor tiket atau nama layanan…" oninput="renderTickets()">
-        <button class="search-btn" onclick="renderTickets()">Cari</button>
-      </div>
-      <div class="ticket-list" id="ticket-list">
-        <div class="empty"><div class="empty-ico">📋</div><div class="empty-title">Belum ada pengajuan</div><div class="empty-desc">Buat pengajuan di menu Layanan Surat</div></div>
-      </div>
-    </div>
-
-    <!-- ══ PENGADUAN ══ -->
-    <div class="page" id="page-pengaduan">
-      <div class="two-panel">
-        <div class="form-card">
-          <h2>📢 Sampaikan Pengaduan</h2>
-          <p>Kami berkomitmen menindaklanjuti setiap pengaduan dalam 1×24 jam hari kerja. Sertakan foto bukti untuk mempercepat proses.</p>
-          <div class="fg"><label class="fl">Nama Pelapor <span class="req">*</span></label><input class="fi" id="pnama" placeholder="Nama lengkap Anda"></div>
-          <div class="row2">
-            <div class="fg"><label class="fl">Nomor HP <span class="req">*</span></label><input class="fi" id="php" placeholder="08xxxxxxxxxx"></div>
-            <div class="fg"><label class="fl">RT/RW</label><input class="fi" id="prt" placeholder="RT 03/RW 07"></div>
-          </div>
-          <div class="fg"><label class="fl">Kategori <span class="req">*</span></label>
-            <select class="fs" id="pkat">
-              <option value="">-- Pilih kategori --</option>
-              <option>Pelayanan lambat / tidak memuaskan</option>
-              <option>Informasi tidak jelas</option>
-              <option>Infrastruktur jalan rusak</option>
-              <option>Kebersihan lingkungan</option>
-              <option>Keamanan &amp; ketertiban</option>
-              <option>Fasilitas umum bermasalah</option>
-              <option>Lainnya</option>
-            </select>
-          </div>
-          <div class="fg"><label class="fl">Lokasi Kejadian</label><input class="fi" id="plok" placeholder="Nama jalan, kelurahan, atau area"></div>
-          <div class="fg"><label class="fl">Uraian Pengaduan <span class="req">*</span></label><textarea class="ft" id="puraian" placeholder="Jelaskan pengaduan secara lengkap…" oninput="document.getElementById('pcc').textContent=Math.min(this.value.length,500)"></textarea><div class="char-count"><span id="pcc">0</span>/500</div></div>
-
-          <!-- Upload 2 foto bukti -->
-          <div class="fg">
-            <label class="fl">Foto Bukti</label>
-            <div class="upload-multi">
-              <div>
-                <div class="upload-zone" id="uz-pb1" ondragover="dragOver(event,'uz-pb1')" ondragleave="dragLeave('uz-pb1')" ondrop="dropFile(event,'pb1-input','uz-pb1')">
-                  <input type="file" id="pb1-input" accept="image/jpeg,image/png,image/webp" onchange="handleFile(this,'uz-pb1','prev-pb1')">
-                  <div class="upload-icon">📸</div>
-                  <div class="upload-title">Foto Bukti 1</div>
-                  <div class="upload-hint">JPG, PNG, WEBP · maks 5 MB</div>
-                </div>
-                <div class="upload-preview" id="prev-pb1"><img id="img-pb1" src=""><div class="preview-name" id="pn-pb1"></div><button class="remove-file" onclick="clearFile('pb1-input','prev-pb1','uz-pb1')">✕</button></div>
-              </div>
-              <div>
-                <div class="upload-zone" id="uz-pb2" ondragover="dragOver(event,'uz-pb2')" ondragleave="dragLeave('uz-pb2')" ondrop="dropFile(event,'pb2-input','uz-pb2')">
-                  <input type="file" id="pb2-input" accept="image/jpeg,image/png,image/webp" onchange="handleFile(this,'uz-pb2','prev-pb2')">
-                  <div class="upload-icon">📷</div>
-                  <div class="upload-title">Foto Bukti 2</div>
-                  <div class="upload-hint">Opsional · maks 5 MB</div>
-                </div>
-                <div class="upload-preview" id="prev-pb2"><img id="img-pb2" src=""><div class="preview-name" id="pn-pb2"></div><button class="remove-file" onclick="clearFile('pb2-input','prev-pb2','uz-pb2')">✕</button></div>
-              </div>
-            </div>
-            <div class="upload-progress" id="prog-pengaduan"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-pengaduan"></div></div><div class="upload-bar-label" id="bar-label-pengaduan">Mengupload ke S3…</div></div>
-          </div>
-
-          <button class="btn-submit" style="width:100%;margin-top:4px" id="btn-peng" onclick="submitPengaduan()">Kirim Pengaduan ✉️</button>
-        </div>
-        <div>
-          <div class="info-card">
-            <h3>Informasi</h3>
-            <div class="info-item"><div class="info-ico">⏱</div><div><h4>Waktu Respon</h4><p>Ditanggapi dalam 1×24 jam hari kerja</p></div></div>
-            <div class="info-item"><div class="info-ico">🔒</div><div><h4>Kerahasiaan</h4><p>Identitas pelapor dijaga sesuai peraturan</p></div></div>
-            <div class="info-item"><div class="info-ico">☁️</div><div><h4>Upload ke S3</h4><p>Foto bukti disimpan aman di Amazon S3</p></div></div>
-            <div class="info-item"><div class="info-ico">📞</div><div><h4>Hotline</h4><p>0800-1234-567 (bebas pulsa)</p></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ KONEKSI AWS ══ -->
-    <div class="page" id="page-koneksi">
-      <div style="max-width:680px">
-
-        <!-- RDS Card -->
-        <div class="panel" style="margin-bottom:16px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-            <div style="display:flex;align-items:center;gap:12px">
-              <div style="font-size:28px">🗄️</div>
-              <div><div style="font-size:15px;font-weight:700">Amazon RDS</div><div style="font-size:12px;color:var(--text-muted)">MySQL / PostgreSQL Database</div></div>
-            </div>
-            <div id="rds-badge" class="aws-chip wait"><div class="chip-dot"></div>Memeriksa…</div>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
-            <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">STATUS</div><div style="font-size:14px;font-weight:700" id="rds-status">—</div></div>
-            <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">LATENCY</div><div style="font-size:14px;font-weight:700" id="rds-latency">—</div></div>
-            <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">ENGINE</div><div style="font-size:14px;font-weight:700" id="rds-engine">—</div></div>
-          </div>
-          <div style="margin-top:12px;padding:10px 14px;background:var(--surface);border-radius:var(--radius-sm);font-size:12px;color:var(--text-muted)">
-            Host: <span id="rds-host" style="font-family:monospace;color:var(--text)">—</span>
-          </div>
-        </div>
-
-        <!-- S3 Card -->
-        <div class="panel" style="margin-bottom:16px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-            <div style="display:flex;align-items:center;gap:12px">
-              <div style="font-size:28px">🪣</div>
-              <div><div style="font-size:15px;font-weight:700">Amazon S3</div><div style="font-size:12px;color:var(--text-muted)">Object Storage untuk File Upload</div></div>
-            </div>
-            <div id="s3-badge" class="aws-chip wait"><div class="chip-dot"></div>Memeriksa…</div>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
-            <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">STATUS</div><div style="font-size:14px;font-weight:700" id="s3-status">—</div></div>
-            <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">BUCKET</div><div style="font-size:14px;font-weight:700" id="s3-bucket">—</div></div>
-            <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">REGION</div><div style="font-size:14px;font-weight:700" id="s3-region">—</div></div>
-          </div>
-          <!-- Recent Uploads -->
-          <div style="margin-top:14px">
-            <div style="font-size:13px;font-weight:600;margin-bottom:10px">File Terupload ke S3</div>
-            <div id="s3-uploads-list">
-              <div style="font-size:13px;color:var(--text-muted);text-align:center;padding:16px">Belum ada file diupload</div>
+            <div class="modal-icon-big" id="m-icon">📄</div>
+            <div class="modal-title" id="m-title">Pengajuan Layanan</div>
+            <div class="modal-sub" id="m-sub">
+              Isi formulir + upload dokumen
             </div>
           </div>
+          <button class="close-btn" onclick="closeModal()">✕</button>
         </div>
-
-        <div style="display:flex;gap:10px">
-          <button class="btn-submit" style="flex:1;max-width:200px" onclick="runHealthCheck(true)">🔄 Cek Koneksi</button>
-          <button class="btn-ghost" style="flex:1;max-width:200px" onclick="go('layanan',null)">📄 Buat Pengajuan</button>
+        <div id="m-body"></div>
+        <div class="modal-actions">
+          <button class="btn-ghost" onclick="closeModal()">Batal</button>
+          <button class="btn-submit" id="m-submit" onclick="submitModal()">
+            <span>Kirim Pengajuan</span> 📨
+          </button>
         </div>
       </div>
     </div>
 
-  </main>
-</div>
-</div>
-
-<!-- ══ MODAL PENGAJUAN ══ -->
-<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <div class="modal-head">
-      <div>
-        <div class="modal-icon-big" id="m-icon">📄</div>
-        <div class="modal-title" id="m-title">Pengajuan Layanan</div>
-        <div class="modal-sub" id="m-sub">Isi formulir + upload dokumen</div>
+    <!-- ══ CONFIRM DELETE ══ -->
+    <div class="confirm-overlay" id="confirm-overlay">
+      <div class="confirm-box">
+        <div class="confirm-icon">🗑️</div>
+        <div class="confirm-title">Hapus File?</div>
+        <div class="confirm-desc" id="confirm-desc">
+          File akan dihapus permanen dari Amazon S3 dan tidak bisa dipulihkan.
+        </div>
+        <div class="confirm-actions">
+          <button class="btn-ghost" style="flex: 1" onclick="closeConfirm()">
+            Batal
+          </button>
+          <button
+            class="btn-danger"
+            style="flex: 1"
+            id="confirm-ok-btn"
+            onclick="confirmDelete()"
+          >
+            Ya, Hapus
+          </button>
+        </div>
       </div>
-      <button class="close-btn" onclick="closeModal()">✕</button>
     </div>
-    <div id="m-body"></div>
-    <div class="modal-actions">
-      <button class="btn-ghost" onclick="closeModal()">Batal</button>
-      <button class="btn-submit" id="m-submit" onclick="submitModal()"><span>Kirim Pengajuan</span> 📨</button>
-    </div>
-  </div>
-</div>
 
-<div class="toast-box" id="toast-box"></div>
-
-<script>
-// ── CONFIG ──────────────────────────────────────────────────────────
-// Ganti dengan URL EC2 Anda saat deploy
-var API_BASE = 'http://localhost:8000';
-
-// ── STATE ────────────────────────────────────────────────────────────
-var tickets = [], acts = [];
-var cnt = {total:0, proses:0, selesai:0, peng:0};
-var currentModal = '';
-var s3Files = [];  // log file yang berhasil diupload ke S3
-
-// ── NAVIGATION ───────────────────────────────────────────────────────
-var pageLabels = {
-  dashboard: ['Dashboard','Selamat datang di portal layanan publik digital'],
-  layanan:   ['Layanan Surat','Pilih jenis surat yang Anda butuhkan'],
-  status:    ['Status Layanan','Pantau perkembangan pengajuan Anda'],
-  pengaduan: ['Pengaduan Masyarakat','Sampaikan aspirasi dan keluhan Anda'],
-  koneksi:   ['Koneksi AWS','Status koneksi Amazon RDS & S3'],
-};
-function go(id, el) {
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
-  document.getElementById('page-'+id).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active')});
-  if(el) el.classList.add('active');
-  var l = pageLabels[id] || [id,''];
-  document.getElementById('topbar-title').textContent = l[0];
-  document.getElementById('topbar-sub').textContent   = l[1];
-  if(window.innerWidth<=900) document.getElementById('sidebar').classList.remove('open');
-}
-
-// ── HEALTH CHECK (RDS + S3) ──────────────────────────────────────────
-function runHealthCheck(manual) {
-  setBanner('checking');
-  fetch(API_BASE + '/api/health/')
-    .then(function(r){return r.json()})
-    .then(function(d){
-      updateConeksiPage(d);
-      var ok = d.rds.connected && d.s3.connected;
-      setBanner(ok ? 'healthy' : 'degraded', d);
-      if(manual) toast(ok ? '✅ RDS & S3 terhubung!' : '⚠️ Koneksi sebagian gagal', ok?'success':'error');
-    })
-    .catch(function(){
-      setBanner('degraded', null);
-      if(manual) toast('⚠️ Tidak dapat menghubungi server. Pastikan EC2 berjalan.','error');
-    });
-}
-
-function setBanner(state, d) {
-  var b   = document.getElementById('aws-banner');
-  var dot = document.getElementById('aws-main-dot');
-  var lbl = document.getElementById('aws-banner-label');
-  var sub = document.getElementById('aws-banner-sub');
-  var chips = document.getElementById('aws-chips');
-  b.className = 'aws-banner ' + state;
-  if(state === 'checking'){
-    dot.className='aws-dot spin';
-    lbl.textContent='Memeriksa koneksi AWS…';
-    sub.textContent='Menghubungkan ke RDS & S3';
-    chips.innerHTML='<div class="aws-chip wait"><div class="chip-dot"></div>RDS</div><div class="aws-chip wait"><div class="chip-dot"></div>S3</div>';
-  } else if(state === 'healthy' && d){
-    dot.className='aws-dot on';
-    lbl.textContent='Semua sistem berjalan normal';
-    sub.textContent='RDS & S3 terhubung — latency '+d.rds.latency_ms+'ms';
-    chips.innerHTML='<div class="aws-chip ok"><div class="chip-dot"></div>RDS Connected</div><div class="aws-chip ok"><div class="chip-dot"></div>S3 Connected</div>';
-  } else {
-    dot.className='aws-dot off';
-    lbl.textContent='Koneksi AWS bermasalah';
-    sub.textContent='Periksa konfigurasi EC2, RDS, atau S3';
-    var rOk = d&&d.rds.connected, sOk = d&&d.s3.connected;
-    chips.innerHTML='<div class="aws-chip '+(rOk?'ok':'fail')+'"><div class="chip-dot"></div>RDS '+(rOk?'OK':'Gagal')+'</div><div class="aws-chip '+(sOk?'ok':'fail')+'"><div class="chip-dot"></div>S3 '+(sOk?'OK':'Gagal')+'</div>';
-  }
-}
-
-function updateConeksiPage(d) {
-  // RDS
-  var rOk = d.rds.connected;
-  document.getElementById('rds-badge').className  = 'aws-chip '+(rOk?'ok':'fail');
-  document.getElementById('rds-badge').innerHTML  = '<div class="chip-dot"></div>'+(rOk?'Connected':'Gagal');
-  document.getElementById('rds-status').textContent  = rOk ? '✅ Online' : '❌ Offline';
-  document.getElementById('rds-latency').textContent = rOk ? d.rds.latency_ms+'ms' : '—';
-  document.getElementById('rds-engine').textContent  = d.rds.engine || '—';
-  document.getElementById('rds-host').textContent    = d.rds.host   || '—';
-  // S3
-  var sOk = d.s3.connected;
-  document.getElementById('s3-badge').className   = 'aws-chip '+(sOk?'ok':'fail');
-  document.getElementById('s3-badge').innerHTML   = '<div class="chip-dot"></div>'+(sOk?'Connected':'Gagal');
-  document.getElementById('s3-status').textContent = sOk ? '✅ Online' : '❌ Offline';
-  document.getElementById('s3-bucket').textContent = d.s3.bucket || '—';
-  document.getElementById('s3-region').textContent = d.s3.region || '—';
-}
-
-// ── UPLOAD HELPERS ────────────────────────────────────────────────────
-var MAX_MB = 5;
-function handleFile(input, zoneId, prevId) {
-  var f = input.files[0]; if(!f) return;
-  if(f.size > MAX_MB*1024*1024){ toast('❌ File terlalu besar (maks '+MAX_MB+' MB)','error'); input.value=''; return; }
-  var allowed = ['image/jpeg','image/png','image/webp','application/pdf'];
-  if(!allowed.includes(f.type)){ toast('❌ Format tidak didukung (JPG/PNG/WEBP/PDF)','error'); input.value=''; return; }
-  var prev = document.getElementById(prevId);
-  if(f.type === 'application/pdf') {
-    prev.innerHTML = '<div class="preview-pdf"><div class="preview-pdf-icon">📄</div><div><div class="preview-pdf-name">'+f.name+'</div><div class="preview-pdf-size">'+formatSize(f.size)+'</div></div></div><button class="remove-file" onclick="clearFile(\''+input.id+'\',\''+prevId+'\',\''+zoneId+'\')">✕</button>';
-  } else {
-    var id = input.id.replace('-input','');
-    prev.innerHTML = '<img id="img-'+id+'" src=""><div class="preview-name" id="pn-'+id+'">'+f.name+' — '+formatSize(f.size)+'</div><button class="remove-file" onclick="clearFile(\''+input.id+'\',\''+prevId+'\',\''+zoneId+'\')">✕</button>';
-    var reader = new FileReader();
-    reader.onload = function(e){ var im = document.getElementById('img-'+id); if(im) im.src=e.target.result; };
-    reader.readAsDataURL(f);
-  }
-  prev.style.display = 'block';
-  document.getElementById(zoneId).style.opacity = '.5';
-}
-function clearFile(inputId, prevId, zoneId) {
-  document.getElementById(inputId).value = '';
-  document.getElementById(prevId).style.display = 'none';
-  document.getElementById(zoneId).style.opacity = '1';
-}
-function dragOver(e, zoneId){ e.preventDefault(); document.getElementById(zoneId).classList.add('drag'); }
-function dragLeave(zoneId){ document.getElementById(zoneId).classList.remove('drag'); }
-function dropFile(e, inputId, zoneId){
-  e.preventDefault(); dragLeave(zoneId);
-  var files = e.dataTransfer.files;
-  if(!files.length) return;
-  var input = document.getElementById(inputId);
-  var dt = new DataTransfer(); dt.items.add(files[0]);
-  input.files = dt.files;
-  input.dispatchEvent(new Event('change'));
-}
-function formatSize(b){ return b>1024*1024?(b/1024/1024).toFixed(1)+' MB':(b/1024).toFixed(0)+' KB'; }
-
-function showProgress(progId, barId, labelId, show) {
-  document.getElementById(progId).style.display = show ? 'block' : 'none';
-}
-function animateBar(barId, labelId, cb) {
-  var bar = document.getElementById(barId);
-  var lbl = document.getElementById(labelId);
-  var pct = 0;
-  var iv = setInterval(function(){
-    pct = Math.min(pct + Math.random()*18+8, 90);
-    bar.style.width = pct + '%';
-    lbl.textContent = 'Mengupload ke S3… ' + Math.round(pct) + '%';
-  }, 180);
-  setTimeout(function(){
-    clearInterval(iv);
-    bar.style.width = '100%';
-    lbl.textContent = '✅ Upload ke S3 selesai!';
-    setTimeout(function(){ showProgress('prog-'+barId.replace('bar-',''), barId, labelId, false); if(cb) cb(); }, 700);
-  }, 2000);
-}
-
-// ── MODAL SERVICES DEF ────────────────────────────────────────────────
-var svc = {
-  domisili:{icon:'🏠',title:'Surat Keterangan Domisili',sub:'Waktu proses: 1–2 hari kerja',fields:function(){return`
-    <div class="fg"><label class="fl">Nama Lengkap <span class="req">*</span></label><input class="fi" id="f-nama" placeholder="Sesuai KTP"></div>
-    <div class="row2">
-      <div class="fg"><label class="fl">NIK <span class="req">*</span></label><input class="fi" id="f-nik" placeholder="16 digit NIK" maxlength="16"></div>
-      <div class="fg"><label class="fl">Keperluan</label><input class="fi" id="f-kep" placeholder="Misal: melamar kerja"></div>
-    </div>
-    <div class="fg"><label class="fl">Alamat Lengkap <span class="req">*</span></label><textarea class="ft" id="f-alamat" placeholder="Jl. …, RT/RW, Kelurahan" style="min-height:64px"></textarea></div>
-    <div class="fg"><label class="fl">📎 Foto KTP <span class="req">*</span></label>
-      <div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')">
-        <input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')">
-        <div class="upload-icon">🪪</div>
-        <div class="upload-title">Klik atau drag foto KTP</div>
-        <div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div>
+    <!-- ══ EDIT MODAL ══ -->
+    <div
+      class="edit-overlay"
+      id="edit-overlay"
+      onclick="if (event.target === this) closeEdit();"
+    >
+      <div class="edit-modal">
+        <div class="modal-head">
+          <div>
+            <div class="modal-icon-big">✏️</div>
+            <div class="modal-title">Edit File</div>
+            <div class="modal-sub">Ubah nama tampilan file di S3</div>
+          </div>
+          <button class="close-btn" onclick="closeEdit()">✕</button>
+        </div>
+        <div class="fg">
+          <label class="fl">Nama File Baru <span class="req">*</span></label
+          ><input
+            class="fi"
+            id="edit-name-input"
+            placeholder="Nama file tanpa ekstensi"
+          />
+        </div>
+        <div class="fg">
+          <label class="fl">Keterangan / Deskripsi</label
+          ><textarea
+            class="ft"
+            id="edit-desc-input"
+            placeholder="Tambahkan keterangan (opsional)…"
+            style="min-height: 70px"
+          ></textarea>
+        </div>
+        <div
+          style="
+            padding: 12px 14px;
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+          "
+        >
+          <b>S3 Key:</b>
+          <span
+            id="edit-s3-key"
+            style="font-family: monospace; word-break: break-all"
+          ></span>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-ghost" onclick="closeEdit()">Batal</button>
+          <button class="btn-submit" onclick="saveEdit()">
+            Simpan Perubahan ✅
+          </button>
+        </div>
       </div>
-      <div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div>
     </div>
-    <div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`}},
-  usaha:{icon:'🏪',title:'Surat Keterangan Usaha',sub:'Waktu proses: 2–3 hari kerja',fields:function(){return`
-    <div class="row2">
-      <div class="fg"><label class="fl">Nama Pemilik <span class="req">*</span></label><input class="fi" id="f-pemilik" placeholder="Nama lengkap"></div>
-      <div class="fg"><label class="fl">Nama Usaha <span class="req">*</span></label><input class="fi" id="f-usaha" placeholder="Nama toko/usaha"></div>
-    </div>
-    <div class="fg"><label class="fl">Jenis Usaha</label><select class="fs" id="f-jenis"><option>Kuliner/Makanan</option><option>Perdagangan umum</option><option>Jasa</option><option>Pertanian</option><option>Lainnya</option></select></div>
-    <div class="fg"><label class="fl">Alamat Usaha <span class="req">*</span></label><textarea class="ft" id="f-alamat-u" style="min-height:64px" placeholder="Alamat lengkap tempat usaha"></textarea></div>
-    <div class="fg"><label class="fl">📎 Foto KTP Pemilik <span class="req">*</span></label>
-      <div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')">
-        <input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')">
-        <div class="upload-icon">🪪</div><div class="upload-title">Klik atau drag foto KTP</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div>
+
+    <!-- ══ VIEW MODAL ══ -->
+    <div
+      class="view-overlay"
+      id="view-overlay"
+      onclick="if (event.target === this) closeView();"
+    >
+      <div class="view-modal">
+        <div id="view-media-wrap"></div>
+        <div class="view-info">
+          <h3 id="view-name">Nama File</h3>
+          <div class="view-meta-grid">
+            <div class="view-meta-item">
+              <label>Tipe File</label><span id="view-type">—</span>
+            </div>
+            <div class="view-meta-item">
+              <label>Ukuran</label><span id="view-size">—</span>
+            </div>
+            <div class="view-meta-item">
+              <label>Diupload</label><span id="view-date">—</span>
+            </div>
+            <div class="view-meta-item">
+              <label>Kategori</label><span id="view-cat">—</span>
+            </div>
+          </div>
+          <label
+            style="
+              font-size: 11px;
+              color: var(--text-muted);
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+            "
+            >URL Amazon S3</label
+          >
+          <span class="s3-full-url" id="view-url">—</span>
+          <div style="display: flex; gap: 8px; margin-top: 16px">
+            <a
+              id="view-open-link"
+              href="#"
+              target="_blank"
+              class="btn-submit"
+              style="flex: 1; text-decoration: none; justify-content: center"
+              >Buka di S3 ↗</a
+            >
+            <button class="btn-ghost" style="flex: 1" onclick="closeView()">
+              Tutup
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div>
     </div>
-    <div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`}},
-  ktp:{icon:'🪪',title:'Permohonan KTP',sub:'Waktu proses: 3–5 hari kerja',fields:function(){return`
-    <div class="fg"><label class="fl">Jenis Permohonan</label><select class="fs" id="f-jktp"><option>KTP Baru</option><option>KTP Hilang</option><option>KTP Rusak</option><option>Perubahan Data</option></select></div>
-    <div class="row2">
-      <div class="fg"><label class="fl">Nama Lengkap <span class="req">*</span></label><input class="fi" id="f-nama" placeholder="Sesuai akta lahir"></div>
-      <div class="fg"><label class="fl">No. KK</label><input class="fi" id="f-nokk" placeholder="Nomor kartu keluarga"></div>
-    </div>
-    <div class="fg"><label class="fl">📎 Foto KK / Dokumen Pendukung</label>
-      <div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')">
-        <input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')">
-        <div class="upload-icon">📋</div><div class="upload-title">Klik atau drag dokumen</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div>
-      </div>
-      <div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div>
-    </div>
-    <div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`}},
-  kk:{icon:'👨‍👩‍👧‍👦',title:'Permohonan Kartu Keluarga',sub:'Waktu proses: 3–5 hari kerja',fields:function(){return`
-    <div class="fg"><label class="fl">Jenis Permohonan</label><select class="fs" id="f-jkk"><option>KK Baru</option><option>Penambahan Anggota</option><option>Pengurangan Anggota</option><option>Perubahan Data</option></select></div>
-    <div class="fg"><label class="fl">Nama Kepala Keluarga <span class="req">*</span></label><input class="fi" id="f-nama" placeholder="Sesuai KTP"></div>
-    <div class="fg"><label class="fl">Keterangan</label><textarea class="ft" id="f-ket" style="min-height:64px" placeholder="Jelaskan keperluan…"></textarea></div>
-    <div class="fg"><label class="fl">📎 Dokumen Pendukung</label>
-      <div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')">
-        <input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')">
-        <div class="upload-icon">📁</div><div class="upload-title">Klik atau drag dokumen</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div>
-      </div>
-      <div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div>
-    </div>
-    <div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`}},
-  nikah:{icon:'💍',title:'Surat Keterangan Nikah',sub:'Waktu proses: 1–2 hari kerja',fields:function(){return`
-    <div class="row2">
-      <div class="fg"><label class="fl">Nama Lengkap <span class="req">*</span></label><input class="fi" id="f-nama" placeholder="Calon pengantin"></div>
-      <div class="fg"><label class="fl">NIK</label><input class="fi" id="f-nik" placeholder="16 digit NIK" maxlength="16"></div>
-    </div>
-    <div class="fg"><label class="fl">Jenis Surat</label><select class="fs" id="f-jnikah"><option>Belum pernah menikah</option><option>Pengantar nikah</option></select></div>
-    <div class="fg"><label class="fl">📎 Foto KTP</label>
-      <div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')">
-        <input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')">
-        <div class="upload-icon">🪪</div><div class="upload-title">Klik atau drag foto KTP</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div>
-      </div>
-      <div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div>
-    </div>
-    <div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`}},
-  pindah:{icon:'📦',title:'Surat Keterangan Pindah',sub:'Waktu proses: 2–4 hari kerja',fields:function(){return`
-    <div class="fg"><label class="fl">Nama Lengkap <span class="req">*</span></label><input class="fi" id="f-nama" placeholder="Sesuai KTP"></div>
-    <div class="row2">
-      <div class="fg"><label class="fl">Alamat Asal <span class="req">*</span></label><input class="fi" id="f-asal" placeholder="Alamat saat ini"></div>
-      <div class="fg"><label class="fl">Alamat Tujuan <span class="req">*</span></label><input class="fi" id="f-tujuan" placeholder="Alamat pindah"></div>
-    </div>
-    <div class="fg"><label class="fl">📎 Foto KTP</label>
-      <div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')">
-        <input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')">
-        <div class="upload-icon">🪪</div><div class="upload-title">Klik atau drag foto KTP</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div>
-      </div>
-      <div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div>
-    </div>
-    <div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`}},
-};
 
-function openModal(type) {
-  currentModal = type;
-  var s = svc[type];
-  document.getElementById('m-icon').textContent  = s.icon;
-  document.getElementById('m-title').textContent = s.title;
-  document.getElementById('m-sub').textContent   = s.sub;
-  document.getElementById('m-body').innerHTML    = s.fields();
-  document.getElementById('overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
+    <div class="toast-box" id="toast-box"></div>
 
-// ── SUBMIT MODAL (call backend or simulate) ───────────────────────────
-function submitModal() {
-  var s      = svc[currentModal];
-  var btn    = document.getElementById('m-submit');
-  var ktpIn  = document.getElementById('ktp-input');
-  var hasFile = ktpIn && ktpIn.files.length > 0;
+    <script>
+      var API_BASE = "http://localhost:5000";
 
-  btn.disabled = true;
-  btn.innerHTML = '<span>Memproses…</span>';
+      // ── STATE ────────────────────────────────────────────────────────────
+      var tickets = [],
+        acts = [];
+      var cnt = { total: 0, proses: 0, selesai: 0, peng: 0 };
+      var currentModal = "";
 
-  var doFinish = function(fileUrl) {
-    var id   = 'TKT-2025-' + String(1000 + cnt.total + 1).slice(1);
-    var date = new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
-    tickets.unshift({id:id, type:currentModal, name:s.title, icon:s.icon,
-      status:'Menunggu', statusClass:'sb-menunggu', progress:15, date:date,
-      files: fileUrl ? 1 : 0, fileUrl: fileUrl });
-    acts.unshift({type:currentModal, name:s.title, icon:s.icon, time:'Baru saja', status:'Menunggu verifikasi'});
-    cnt.total++; cnt.proses++;
-    if(fileUrl) {
-      s3Files.unshift({name: ktpIn?ktpIn.files[0]?.name:'file.jpg', url: fileUrl, time:'Baru saja', type: s.title});
-      renderS3List();
-    }
-    updateStats(); renderTickets(); renderActs();
-    closeModal(); btn.disabled=false; btn.innerHTML='<span>Kirim Pengajuan</span> 📨';
-    toast('✅ '+s.title+' berhasil dikirim'+(fileUrl?' & file terupload ke S3':'')+'!','success');
-  };
+      // CRUD state
+      var crudFiles = []; // [{id, name, displayName, desc, url, size, type, date, category}]
+      var crudFilter = "semua";
+      var pendingDeleteId = null;
+      var pendingEditId = null;
 
-  if(hasFile) {
-    // Kirim ke API backend (multipart/form-data)
-    var fd = new FormData();
-    fd.append('jenis_surat', currentModal);
-    var namaEl = document.getElementById('f-nama') || document.getElementById('f-pemilik');
-    fd.append('nama_lengkap', namaEl ? namaEl.value : 'Pengguna');
-    fd.append('foto_ktp', ktpIn.files[0]);
+      // ── NAVIGATION ───────────────────────────────────────────────────────
+      var pageLabels = {
+        dashboard: [
+          "Dashboard",
+          "Selamat datang di portal layanan publik digital",
+        ],
+        layanan: ["Layanan Surat", "Pilih jenis surat yang Anda butuhkan"],
+        status: ["Status Layanan", "Pantau perkembangan pengajuan Anda"],
+        pengaduan: [
+          "Pengaduan Masyarakat",
+          "Sampaikan aspirasi dan keluhan Anda",
+        ],
+        crud: [
+          "Kelola File S3",
+          "Create · Read · Update · Delete file di Amazon S3",
+        ],
+        koneksi: ["Koneksi AWS", "Status koneksi Amazon RDS & S3"],
+      };
+      function go(id, el) {
+        document.querySelectorAll(".page").forEach(function (p) {
+          p.classList.remove("active");
+        });
+        document.getElementById("page-" + id).classList.add("active");
+        document.querySelectorAll(".nav-item").forEach(function (n) {
+          n.classList.remove("active");
+        });
+        if (el) el.classList.add("active");
+        var l = pageLabels[id] || [id, ""];
+        document.getElementById("topbar-title").textContent = l[0];
+        document.getElementById("topbar-sub").textContent = l[1];
+        if (window.innerWidth <= 900)
+          document.getElementById("sidebar").classList.remove("open");
+      }
 
-    showProgress('prog-modal','bar-modal','bar-label-modal', true);
-    animateBar('bar-modal','bar-label-modal', function(){});
+      // ── HEALTH CHECK ─────────────────────────────────────────────────────
+      function runHealthCheck(manual) {
+        setBanner("checking");
+        fetch(API_BASE + "/api/health/")
+          .then(function (r) {
+            return r.json();
+          })
+          .then(function (d) {
+            updateConeksiPage(d);
+            var ok = d.rds.connected && d.s3.connected;
+            setBanner(ok ? "healthy" : "degraded", d);
+            if (manual)
+              toast(
+                ok ? "✅ RDS & S3 terhubung!" : "⚠️ Koneksi sebagian gagal",
+                ok ? "success" : "error",
+              );
+          })
+          .catch(function () {
+            setBanner("degraded", null);
+            if (manual) toast("⚠️ Tidak dapat menghubungi server", "error");
+          });
+      }
+      function setBanner(state, d) {
+        var b = document.getElementById("aws-banner"),
+          dot = document.getElementById("aws-main-dot"),
+          lbl = document.getElementById("aws-banner-label"),
+          sub = document.getElementById("aws-banner-sub"),
+          chips = document.getElementById("aws-chips");
+        b.className = "aws-banner " + state;
+        if (state === "checking") {
+          dot.className = "aws-dot spin";
+          lbl.textContent = "Memeriksa koneksi AWS…";
+          sub.textContent = "Menghubungkan ke RDS & S3";
+          chips.innerHTML =
+            '<div class="aws-chip wait"><div class="chip-dot"></div>RDS</div><div class="aws-chip wait"><div class="chip-dot"></div>S3</div>';
+        } else if (state === "healthy" && d) {
+          dot.className = "aws-dot on";
+          lbl.textContent = "Semua sistem berjalan normal";
+          sub.textContent =
+            "RDS & S3 terhubung — latency " + d.rds.latency_ms + "ms";
+          chips.innerHTML =
+            '<div class="aws-chip ok"><div class="chip-dot"></div>RDS Connected</div><div class="aws-chip ok"><div class="chip-dot"></div>S3 Connected</div>';
+        } else {
+          dot.className = "aws-dot off";
+          lbl.textContent = "Koneksi AWS bermasalah";
+          sub.textContent = "Periksa konfigurasi EC2, RDS, atau S3";
+          var rOk = d && d.rds.connected,
+            sOk = d && d.s3.connected;
+          chips.innerHTML =
+            '<div class="aws-chip ' +
+            (rOk ? "ok" : "fail") +
+            '"><div class="chip-dot"></div>RDS ' +
+            (rOk ? "OK" : "Gagal") +
+            '</div><div class="aws-chip ' +
+            (sOk ? "ok" : "fail") +
+            '"><div class="chip-dot"></div>S3 ' +
+            (sOk ? "OK" : "Gagal") +
+            "</div>";
+        }
+      }
+      function updateConeksiPage(d) {
+        var rOk = d.rds.connected;
+        document.getElementById("rds-badge").className =
+          "aws-chip " + (rOk ? "ok" : "fail");
+        document.getElementById("rds-badge").innerHTML =
+          '<div class="chip-dot"></div>' + (rOk ? "Connected" : "Gagal");
+        document.getElementById("rds-status").textContent = rOk
+          ? "✅ Online"
+          : "❌ Offline";
+        document.getElementById("rds-latency").textContent = rOk
+          ? d.rds.latency_ms + "ms"
+          : "—";
+        document.getElementById("rds-engine").textContent = d.rds.engine || "—";
+        document.getElementById("rds-host").textContent = d.rds.host || "—";
+        var sOk = d.s3.connected;
+        document.getElementById("s3-badge").className =
+          "aws-chip " + (sOk ? "ok" : "fail");
+        document.getElementById("s3-badge").innerHTML =
+          '<div class="chip-dot"></div>' + (sOk ? "Connected" : "Gagal");
+        document.getElementById("s3-status").textContent = sOk
+          ? "✅ Online"
+          : "❌ Offline";
+        document.getElementById("s3-bucket").textContent = d.s3.bucket || "—";
+        document.getElementById("s3-region").textContent = d.s3.region || "—";
+      }
 
-    fetch(API_BASE + '/api/pengajuan/', {method:'POST', body:fd})
-      .then(function(r){return r.json()})
-      .then(function(d){
-        doFinish(d.foto_ktp_url || 'https://s3.ap-southeast-1.amazonaws.com/sipelayan-uploads/pengajuan/'+currentModal+'/example.jpg');
-      })
-      .catch(function(){
-        // Jika backend belum aktif: simulasi sukses + tampilkan URL S3 contoh
-        var fakeUrl = 'https://sipelayan-uploads.s3.ap-southeast-1.amazonaws.com/pengajuan/'+currentModal+'/'+Date.now()+'.jpg';
-        doFinish(fakeUrl);
-      });
-  } else {
-    setTimeout(function(){ doFinish(null); }, 600);
-  }
-}
+      // ── UPLOAD HELPERS ────────────────────────────────────────────────────
+      var MAX_MB = 5;
+      function handleFile(input, zoneId, prevId) {
+        var f = input.files[0];
+        if (!f) return;
+        if (f.size > MAX_MB * 1024 * 1024) {
+          toast("❌ File terlalu besar (maks " + MAX_MB + " MB)", "error");
+          input.value = "";
+          return;
+        }
+        var allowed = [
+          "image/jpeg",
+          "image/png",
+          "image/webp",
+          "application/pdf",
+        ];
+        if (!allowed.includes(f.type)) {
+          toast("❌ Format tidak didukung", "error");
+          input.value = "";
+          return;
+        }
+        var prev = document.getElementById(prevId);
+        if (f.type === "application/pdf") {
+          prev.innerHTML =
+            '<div class="preview-pdf"><div class="preview-pdf-icon">📄</div><div><div class="preview-pdf-name">' +
+            f.name +
+            '</div><div class="preview-pdf-size">' +
+            formatSize(f.size) +
+            '</div></div></div><button class="remove-file" onclick="clearFile(\'' +
+            input.id +
+            "','" +
+            prevId +
+            "','" +
+            zoneId +
+            "')\">✕</button>";
+        } else {
+          var id = input.id.replace("-input", "");
+          prev.innerHTML =
+            '<img id="img-' +
+            id +
+            '" src=""><div class="preview-name" id="pn-' +
+            id +
+            '">' +
+            f.name +
+            " — " +
+            formatSize(f.size) +
+            '</div><button class="remove-file" onclick="clearFile(\'' +
+            input.id +
+            "','" +
+            prevId +
+            "','" +
+            zoneId +
+            "')\">✕</button>";
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var im = document.getElementById("img-" + id);
+            if (im) im.src = e.target.result;
+          };
+          reader.readAsDataURL(f);
+        }
+        prev.style.display = "block";
+        document.getElementById(zoneId).style.opacity = ".5";
+      }
+      function clearFile(inputId, prevId, zoneId) {
+        document.getElementById(inputId).value = "";
+        document.getElementById(prevId).style.display = "none";
+        document.getElementById(zoneId).style.opacity = "1";
+      }
+      function dragOver(e, zoneId) {
+        e.preventDefault();
+        document.getElementById(zoneId).classList.add("drag");
+      }
+      function dragLeave(zoneId) {
+        document.getElementById(zoneId).classList.remove("drag");
+      }
+      function dropFile(e, inputId, zoneId) {
+        e.preventDefault();
+        dragLeave(zoneId);
+        var files = e.dataTransfer.files;
+        if (!files.length) return;
+        var input = document.getElementById(inputId);
+        var dt = new DataTransfer();
+        dt.items.add(files[0]);
+        input.files = dt.files;
+        input.dispatchEvent(new Event("change"));
+      }
+      function formatSize(b) {
+        return b > 1024 * 1024
+          ? (b / 1024 / 1024).toFixed(1) + " MB"
+          : (b / 1024).toFixed(0) + " KB";
+      }
 
-// ── SUBMIT PENGADUAN ──────────────────────────────────────────────────
-function submitPengaduan() {
-  var nama = document.getElementById('pnama').value.trim();
-  var hp   = document.getElementById('php').value.trim();
-  var kat  = document.getElementById('pkat').value;
-  var ur   = document.getElementById('puraian').value.trim();
-  if(!nama||!hp||!kat||!ur){ toast('⚠️ Mohon isi semua field wajib','error'); return; }
+      // ══════════════════════════════════════════════════════════════
+      // CRUD S3
+      // ══════════════════════════════════════════════════════════════
 
-  var btn = document.getElementById('btn-peng');
-  btn.disabled=true; btn.textContent='Memproses…';
+      function crudDragOver(e) {
+        e.preventDefault();
+        document.getElementById("crud-uz").classList.add("drag");
+      }
+      function crudDragLeave() {
+        document.getElementById("crud-uz").classList.remove("drag");
+      }
+      function crudDrop(e) {
+        e.preventDefault();
+        crudDragLeave();
+        crudUpload(e.dataTransfer.files);
+      }
 
-  var pb1 = document.getElementById('pb1-input');
-  var pb2 = document.getElementById('pb2-input');
-  var hasFile = pb1.files.length > 0;
+      // ── CREATE ────────────────────────────────────────────────────
+      function crudUpload(fileList) {
+        if (!fileList || !fileList.length) return;
+        var files = Array.from(fileList);
+        var validFiles = files.filter(function (f) {
+          if (f.size > MAX_MB * 1024 * 1024) {
+            toast("❌ " + f.name + " terlalu besar (maks 5 MB)", "error");
+            return false;
+          }
+          return true;
+        });
+        if (!validFiles.length) return;
 
-  var doFinish = function(urls) {
-    cnt.peng++;
-    acts.unshift({type:'pengaduan', name:'Pengaduan: '+kat, icon:'📢', time:'Baru saja', status:'Diterima'});
-    if(urls.length) {
-      urls.forEach(function(u,i){
-        s3Files.unshift({name:'bukti_'+(i+1)+'.jpg', url:u, time:'Baru saja', type:'Pengaduan'});
-      });
-      renderS3List();
-    }
-    updateStats(); renderActs();
-    ['pnama','php','prt','plok','puraian'].forEach(function(id){ document.getElementById(id).value=''; });
-    document.getElementById('pkat').value='';
-    document.getElementById('pcc').textContent='0';
-    clearFile('pb1-input','prev-pb1','uz-pb1');
-    clearFile('pb2-input','prev-pb2','uz-pb2');
-    document.getElementById('peng-nav-badge').style.display='none';
-    btn.disabled=false; btn.textContent='Kirim Pengaduan ✉️';
-    toast('📢 Pengaduan berhasil dikirim'+(urls.length?' & foto terupload ke S3':'')+'!','success');
-  };
+        // Show progress
+        var prog = document.getElementById("crud-progress");
+        var bar = document.getElementById("cp-bar");
+        var lbl = document.getElementById("cp-label");
+        var nm = document.getElementById("cp-name");
+        prog.classList.add("show");
 
-  if(hasFile) {
-    var fd = new FormData();
-    fd.append('nama_pelapor', nama); fd.append('nomor_hp', hp);
-    fd.append('kategori', kat); fd.append('uraian', ur);
-    if(pb1.files.length) fd.append('foto_bukti_1', pb1.files[0]);
-    if(pb2.files.length) fd.append('foto_bukti_2', pb2.files[0]);
+        var idx = 0;
+        function uploadOne() {
+          if (idx >= validFiles.length) {
+            prog.classList.remove("show");
+            bar.style.width = "0%";
+            return;
+          }
+          var f = validFiles[idx];
+          idx++;
+          nm.textContent =
+            "Mengupload: " +
+            f.name +
+            " (" +
+            idx +
+            "/" +
+            validFiles.length +
+            ")";
+          bar.style.width = "0%";
+          lbl.textContent = "Menghubungi S3…";
 
-    showProgress('prog-pengaduan','bar-pengaduan','bar-label-pengaduan',true);
-    animateBar('bar-pengaduan','bar-label-pengaduan',function(){});
+          var pct = 0;
+          var iv = setInterval(function () {
+            pct = Math.min(pct + Math.floor(Math.random() * 20 + 10), 90);
+            bar.style.width = pct + "%";
+            lbl.textContent = "Mengupload ke S3… " + pct + "%";
+          }, 150);
 
-    fetch(API_BASE+'/api/pengaduan/', {method:'POST', body:fd})
-      .then(function(r){return r.json()})
-      .then(function(d){ doFinish([d.foto_bukti_1_url, d.foto_bukti_2_url].filter(Boolean)); })
-      .catch(function(){
-        var fake = ['https://sipelayan-uploads.s3.ap-southeast-1.amazonaws.com/pengaduan/'+kat.replace(/\s/g,'_').toLowerCase()+'/'+Date.now()+'.jpg'];
-        doFinish(fake);
-      });
-  } else {
-    setTimeout(function(){ doFinish([]); }, 500);
-  }
-}
+          var fd = new FormData();
+          fd.append("file", f);
+          fd.append("jenis_surat", "crud");
+          fd.append("nama_lengkap", "Admin CRUD");
 
-// ── RENDER HELPERS ────────────────────────────────────────────────────
-function updateStats() {
-  document.getElementById('d-total').textContent  = cnt.total;
-  document.getElementById('d-proses').textContent = cnt.proses;
-  document.getElementById('d-selesai').textContent= cnt.selesai;
-  document.getElementById('d-peng').textContent   = cnt.peng;
-  document.getElementById('qs-m').textContent = tickets.filter(function(t){return t.status==='Menunggu';}).length;
-  document.getElementById('qs-p').textContent = cnt.proses;
-  document.getElementById('qs-s').textContent = cnt.selesai;
-  document.getElementById('qs-pg').textContent= cnt.peng;
-}
-function renderTickets() {
-  var list = document.getElementById('ticket-list');
-  if(!tickets.length){ list.innerHTML='<div class="empty"><div class="empty-ico">📋</div><div class="empty-title">Belum ada pengajuan</div><div class="empty-desc">Buat pengajuan di menu Layanan Surat</div></div>'; return; }
-  var q = document.getElementById('search-in').value.toLowerCase();
-  var fl = q ? tickets.filter(function(t){return t.name.toLowerCase().includes(q)||t.id.toLowerCase().includes(q);}) : tickets;
-  if(!fl.length){ list.innerHTML='<div class="empty"><div class="empty-ico">🔍</div><div class="empty-title">Tidak ditemukan</div><div class="empty-desc">Coba kata kunci lain</div></div>'; return; }
-  list.innerHTML = fl.map(function(t){
-    var d = t.progress>=100?3:t.progress>=50?2:1;
-    var fi = t.files ? '<span style="color:var(--green)">☁️ '+t.files+' file di S3</span>' : '';
-    return '<div class="ticket"><div class="ticket-icon">'+t.icon+'</div><div><div class="ticket-id">#'+t.id+'</div><div class="ticket-name">'+t.name+'</div><div class="ticket-date">'+t.date+'</div><div class="ticket-files">'+fi+'</div><div class="progress-track"><div class="progress-fill '+(t.progress<30?'amber':'')+'" style="width:'+t.progress+'%"></div></div><div class="psteps"><span class="pstep done">Dikirim</span><span class="pstep '+(d>=2?'done':'')+'">Verifikasi</span><span class="pstep '+(d>=3?'done':'')+'">Diproses</span><span class="pstep">Selesai</span></div></div><div><span class="sbadge '+t.statusClass+'">'+t.status+'</span></div></div>';
-  }).join('');
-}
-function renderActs() {
-  var list = document.getElementById('act-list');
-  if(!acts.length){ list.innerHTML='<div class="empty" style="border:none;padding:20px"><div class="empty-ico">📭</div><div class="empty-title">Belum ada aktivitas</div></div>'; return; }
-  var dc={domisili:'var(--green)',usaha:'var(--amber)',ktp:'var(--blue)',kk:'var(--blue)',nikah:'var(--red)',pindah:'var(--amber)',pengaduan:'var(--red)'};
-  list.innerHTML = acts.slice(0,6).map(function(a){
-    return '<div class="act-item"><div class="act-dot" style="background:'+(dc[a.type]||'var(--green)')+'"></div><div class="act-info"><div class="act-text">'+a.icon+' '+a.name+'</div><div class="act-time">'+a.time+'</div></div><div class="act-status">'+a.status+'</div></div>';
-  }).join('');
-}
-function renderS3List() {
-  var el = document.getElementById('s3-uploads-list');
-  if(!s3Files.length){ el.innerHTML='<div style="font-size:13px;color:var(--text-muted);text-align:center;padding:16px">Belum ada file diupload</div>'; return; }
-  el.innerHTML = s3Files.slice(0,8).map(function(f){
-    return '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--surface)"><div style="font-size:20px">'+(f.name.endsWith('.pdf')?'📄':'🖼️')+'</div><div style="flex:1"><div style="font-size:13px;font-weight:500">'+f.name+'</div><div style="font-size:11px;color:var(--text-muted)">'+f.type+' · '+f.time+'</div></div><a href="'+f.url+'" target="_blank" style="font-size:11px;color:var(--green);font-weight:600;text-decoration:none">Lihat →</a></div>';
-  }).join('');
-}
+          fetch(API_BASE + "/api/pengajuan/", { method: "POST", body: fd })
+            .then(function (r) {
+              return r.json();
+            })
+            .then(function (d) {
+              clearInterval(iv);
+              bar.style.width = "100%";
+              lbl.textContent = "✅ Tersimpan di S3!";
+              var url =
+                d.foto_ktp_url ||
+                "https://sipelayan-uploads.s3.ap-southeast-1.amazonaws.com/crud/" +
+                  Date.now() +
+                  "_" +
+                  f.name;
+              addCrudFile(f, url);
+              setTimeout(uploadOne, 500);
+            })
+            .catch(function () {
+              clearInterval(iv);
+              bar.style.width = "100%";
+              lbl.textContent = "✅ Tersimpan di S3 (simulasi)";
+              var url =
+                "https://sipelayan-uploads.s3.ap-southeast-1.amazonaws.com/crud/" +
+                Date.now() +
+                "_" +
+                f.name;
+              addCrudFile(f, url);
+              setTimeout(uploadOne, 500);
+            });
+        }
+        uploadOne();
+      }
 
-// ── TOAST ─────────────────────────────────────────────────────────────
-function toast(msg, type) {
-  var box = document.getElementById('toast-box');
-  var el = document.createElement('div');
-  el.className = 'toast '+(type||'');
-  el.textContent = msg;
-  box.appendChild(el);
-  setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 3200);
-}
+      function addCrudFile(f, url) {
+        var cat = f.type.startsWith("image/")
+          ? "gambar"
+          : f.type === "application/pdf"
+            ? "pdf"
+            : "dokumen";
+        var item = {
+          id: "f" + Date.now() + Math.random().toString(36).slice(2, 6),
+          name: f.name,
+          displayName: f.name.replace(/\.[^.]+$/, ""),
+          desc: "",
+          url: url,
+          size: f.size,
+          type: f.type || "application/octet-stream",
+          date: new Date().toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }),
+          category: cat,
+          isImage: f.type.startsWith("image/"),
+          dataUrl: null,
+        };
+        // read image preview
+        if (item.isImage) {
+          var r = new FileReader();
+          r.onload = function (e) {
+            item.dataUrl = e.target.result;
+            renderCrud();
+          };
+          r.readAsDataURL(f);
+        }
+        crudFiles.unshift(item);
+        updateCrudBadge();
+        updateStats();
+        renderCrud();
+        renderS3List();
+        toast("✅ " + f.name + " berhasil diupload ke S3!", "success");
+        acts.unshift({
+          type: "crud",
+          name: "Upload: " + f.name,
+          icon: "☁️",
+          time: "Baru saja",
+          status: "Tersimpan di S3",
+        });
+        renderActs();
+      }
 
-// ── INIT ──────────────────────────────────────────────────────────────
-runHealthCheck(false);
-</script>
-</body>
+      // ── READ / RENDER ─────────────────────────────────────────────
+      function setFilter(el, val) {
+        crudFilter = val;
+        document.querySelectorAll(".filter-pill").forEach(function (p) {
+          p.classList.remove("active");
+        });
+        el.classList.add("active");
+        renderCrud();
+      }
+
+      function renderCrud() {
+        var grid = document.getElementById("crud-grid");
+        var q = document.getElementById("crud-search").value.toLowerCase();
+        var list = crudFiles.filter(function (f) {
+          var matchQ =
+            !q ||
+            f.name.toLowerCase().includes(q) ||
+            f.displayName.toLowerCase().includes(q);
+          var matchF = crudFilter === "semua" || f.category === crudFilter;
+          return matchQ && matchF;
+        });
+
+        if (!list.length) {
+          var emptyMsg = crudFiles.length
+            ? "Tidak ada file yang cocok dengan filter"
+            : "Bucket S3 kosong";
+          var emptyDesc = crudFiles.length
+            ? "Coba ubah filter atau kata kunci"
+            : "Upload file pertama Anda menggunakan zona di atas";
+          grid.innerHTML =
+            '<div class="empty" style="grid-column:1/-1"><div class="empty-ico">🪣</div><div class="empty-title">' +
+            emptyMsg +
+            '</div><div class="empty-desc">' +
+            emptyDesc +
+            "</div></div>";
+          return;
+        }
+
+        grid.innerHTML = list
+          .map(function (f) {
+            var thumb = "";
+            if (f.isImage && f.dataUrl) {
+              thumb =
+                '<img class="file-thumb" src="' +
+                f.dataUrl +
+                '" alt="' +
+                f.displayName +
+                '">';
+            } else if (f.category === "pdf") {
+              thumb = '<div class="file-thumb-pdf">📄</div>';
+            } else if (f.category === "dokumen") {
+              thumb = '<div class="file-thumb-doc">📝</div>';
+            } else {
+              thumb = '<div class="file-thumb-other">📁</div>';
+            }
+            var typeBadge = f.type.includes("pdf")
+              ? "PDF"
+              : f.type.startsWith("image/")
+                ? f.type.replace("image/", "").toUpperCase()
+                : "DOC";
+            return (
+              '<div class="file-card" id="fc-' +
+              f.id +
+              '">' +
+              '<div class="file-type-badge">' +
+              typeBadge +
+              "</div>" +
+              thumb +
+              '<div class="file-body">' +
+              '<div class="file-name" title="' +
+              f.name +
+              '">' +
+              f.displayName +
+              "</div>" +
+              '<div class="file-meta"><span>' +
+              formatSize(f.size) +
+              "</span><span>" +
+              f.date +
+              "</span></div>" +
+              (f.desc
+                ? '<div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;line-height:1.4">' +
+                  f.desc +
+                  "</div>"
+                : "") +
+              '<div class="file-actions">' +
+              '<button class="fa-btn view" onclick="viewFile(\'' +
+              f.id +
+              "')\">👁 Lihat</button>" +
+              '<button class="fa-btn edit" onclick="editFile(\'' +
+              f.id +
+              "')\">✏️ Edit</button>" +
+              '<button class="fa-btn del"  onclick="askDelete(\'' +
+              f.id +
+              "')\">🗑 Hapus</button>" +
+              "</div>" +
+              "</div>" +
+              "</div>"
+            );
+          })
+          .join("");
+      }
+
+      // ── READ — VIEW ───────────────────────────────────────────────
+      function viewFile(id) {
+        var f = crudFiles.find(function (x) {
+          return x.id === id;
+        });
+        if (!f) return;
+        var mw = document.getElementById("view-media-wrap");
+        if (f.isImage && f.dataUrl) {
+          mw.innerHTML =
+            '<img class="view-img" src="' +
+            f.dataUrl +
+            '" alt="' +
+            f.displayName +
+            '">';
+        } else if (f.category === "pdf") {
+          mw.innerHTML =
+            '<div style="background:#1a2b24;height:160px;display:flex;align-items:center;justify-content:center;font-size:64px">📄</div>';
+        } else {
+          mw.innerHTML =
+            '<div style="background:#1a2b24;height:160px;display:flex;align-items:center;justify-content:center;font-size:64px">📁</div>';
+        }
+        document.getElementById("view-name").textContent = f.displayName;
+        document.getElementById("view-type").textContent = f.type;
+        document.getElementById("view-size").textContent = formatSize(f.size);
+        document.getElementById("view-date").textContent = f.date;
+        document.getElementById("view-cat").textContent =
+          f.category.charAt(0).toUpperCase() + f.category.slice(1);
+        document.getElementById("view-url").textContent = f.url;
+        document.getElementById("view-open-link").href = f.url;
+        document.getElementById("view-overlay").classList.add("open");
+      }
+      function closeView() {
+        document.getElementById("view-overlay").classList.remove("open");
+      }
+
+      // ── UPDATE — EDIT ─────────────────────────────────────────────
+      function editFile(id) {
+        var f = crudFiles.find(function (x) {
+          return x.id === id;
+        });
+        if (!f) return;
+        pendingEditId = id;
+        document.getElementById("edit-name-input").value = f.displayName;
+        document.getElementById("edit-desc-input").value = f.desc || "";
+        document.getElementById("edit-s3-key").textContent = f.url;
+        document.getElementById("edit-overlay").classList.add("open");
+      }
+      function closeEdit() {
+        document.getElementById("edit-overlay").classList.remove("open");
+        pendingEditId = null;
+      }
+      function saveEdit() {
+        if (!pendingEditId) return;
+        var f = crudFiles.find(function (x) {
+          return x.id === pendingEditId;
+        });
+        if (!f) return;
+        var newName = document.getElementById("edit-name-input").value.trim();
+        var newDesc = document.getElementById("edit-desc-input").value.trim();
+        if (!newName) {
+          toast("⚠️ Nama file tidak boleh kosong", "error");
+          return;
+        }
+
+        // Kirim ke backend
+        var fd = new FormData();
+        fd.append("file_id", f.id);
+        fd.append("display_name", newName);
+        fd.append("description", newDesc);
+        fd.append("s3_url", f.url);
+
+        fetch(API_BASE + "/api/file/update/", { method: "POST", body: fd })
+          .catch(function () {}) // simulasi tetap jalan
+          .finally(function () {
+            f.displayName = newName;
+            f.desc = newDesc;
+            closeEdit();
+            renderCrud();
+            renderS3List();
+            toast("✅ Nama file berhasil diperbarui!", "success");
+            acts.unshift({
+              type: "crud",
+              name: "Edit: " + newName,
+              icon: "✏️",
+              time: "Baru saja",
+              status: "Diperbarui",
+            });
+            renderActs();
+          });
+      }
+
+      // ── DELETE ────────────────────────────────────────────────────
+      function askDelete(id) {
+        var f = crudFiles.find(function (x) {
+          return x.id === id;
+        });
+        if (!f) return;
+        pendingDeleteId = id;
+        document.getElementById("confirm-desc").textContent =
+          '"' +
+          f.displayName +
+          '" akan dihapus permanen dari Amazon S3 dan tidak bisa dipulihkan.';
+        document.getElementById("confirm-overlay").classList.add("open");
+      }
+      function closeConfirm() {
+        document.getElementById("confirm-overlay").classList.remove("open");
+        pendingDeleteId = null;
+      }
+      function confirmDelete() {
+        if (!pendingDeleteId) return;
+        var f = crudFiles.find(function (x) {
+          return x.id === pendingDeleteId;
+        });
+        if (!f) return;
+
+        var fd = new FormData();
+        fd.append("file_id", f.id);
+        fd.append("s3_url", f.url);
+
+        fetch(API_BASE + "/api/file/delete/", { method: "POST", body: fd })
+          .catch(function () {})
+          .finally(function () {
+            var name = f.displayName;
+            crudFiles = crudFiles.filter(function (x) {
+              return x.id !== pendingDeleteId;
+            });
+            closeConfirm();
+            updateCrudBadge();
+            updateStats();
+            renderCrud();
+            renderS3List();
+            toast("🗑️ " + name + " berhasil dihapus dari S3", "success");
+            acts.unshift({
+              type: "crud",
+              name: "Hapus: " + name,
+              icon: "🗑️",
+              time: "Baru saja",
+              status: "Dihapus dari S3",
+            });
+            renderActs();
+          });
+      }
+
+      function updateCrudBadge() {
+        document.getElementById("crud-nav-badge").textContent =
+          crudFiles.length;
+      }
+
+      // ── MODAL SERVICES ────────────────────────────────────────────
+      var svc = {
+        domisili: {
+          icon: "🏠",
+          title: "Surat Keterangan Domisili",
+          sub: "Waktu proses: 1–2 hari kerja",
+          fields: function () {
+            return `<div class="fg"><label class="fl">Nama Lengkap <span class="req">*</span></label><input class="fi" id="f-nama" placeholder="Sesuai KTP"></div><div class="row2"><div class="fg"><label class="fl">NIK <span class="req">*</span></label><input class="fi" id="f-nik" placeholder="16 digit NIK" maxlength="16"></div><div class="fg"><label class="fl">Keperluan</label><input class="fi" id="f-kep" placeholder="Misal: melamar kerja"></div></div><div class="fg"><label class="fl">Alamat Lengkap <span class="req">*</span></label><textarea class="ft" id="f-alamat" placeholder="Jl. …, RT/RW, Kelurahan" style="min-height:64px"></textarea></div><div class="fg"><label class="fl">📎 Foto KTP <span class="req">*</span></label><div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')"><input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')"><div class="upload-icon">🪪</div><div class="upload-title">Klik atau drag foto KTP</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div></div><div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div></div><div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`;
+          },
+        },
+        usaha: {
+          icon: "🏪",
+          title: "Surat Keterangan Usaha",
+          sub: "Waktu proses: 2–3 hari kerja",
+          fields: function () {
+            return `<div class="row2"><div class="fg"><label class="fl">Nama Pemilik <span class="req">*</span></label><input class="fi" id="f-pemilik" placeholder="Nama lengkap"></div><div class="fg"><label class="fl">Nama Usaha <span class="req">*</span></label><input class="fi" id="f-usaha" placeholder="Nama toko/usaha"></div></div><div class="fg"><label class="fl">Jenis Usaha</label><select class="fs" id="f-jenis"><option>Kuliner/Makanan</option><option>Perdagangan umum</option><option>Jasa</option><option>Pertanian</option><option>Lainnya</option></select></div><div class="fg"><label class="fl">Alamat Usaha <span class="req">*</span></label><textarea class="ft" id="f-alamat-u" style="min-height:64px" placeholder="Alamat lengkap tempat usaha"></textarea></div><div class="fg"><label class="fl">📎 Foto KTP Pemilik <span class="req">*</span></label><div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')"><input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')"><div class="upload-icon">🪪</div><div class="upload-title">Klik atau drag foto KTP</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div></div><div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div></div><div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`;
+          },
+        },
+        ktp: {
+          icon: "🪪",
+          title: "Permohonan KTP",
+          sub: "Waktu proses: 3–5 hari kerja",
+          fields: function () {
+            return `<div class="fg"><label class="fl">Jenis Permohonan</label><select class="fs" id="f-jktp"><option>KTP Baru</option><option>KTP Hilang</option><option>KTP Rusak</option><option>Perubahan Data</option></select></div><div class="row2"><div class="fg"><label class="fl">Nama Lengkap <span class="req">*</span></label><input class="fi" id="f-nama" placeholder="Sesuai akta lahir"></div><div class="fg"><label class="fl">No. KK</label><input class="fi" id="f-nokk" placeholder="Nomor kartu keluarga"></div></div><div class="fg"><label class="fl">📎 Foto KK / Dokumen Pendukung</label><div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')"><input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')"><div class="upload-icon">📋</div><div class="upload-title">Klik atau drag dokumen</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div></div><div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div></div><div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`;
+          },
+        },
+        kk: {
+          icon: "👨‍👩‍👧‍👦",
+          title: "Permohonan Kartu Keluarga",
+          sub: "Waktu proses: 3–5 hari kerja",
+          fields: function () {
+            return `<div class="fg"><label class="fl">Jenis Permohonan</label><select class="fs" id="f-jkk"><option>KK Baru</option><option>Penambahan Anggota</option><option>Pengurangan Anggota</option><option>Perubahan Data</option></select></div><div class="fg"><label class="fl">Nama Kepala Keluarga <span class="req">*</span></label><input class="fi" id="f-nama" placeholder="Sesuai KTP"></div><div class="fg"><label class="fl">Keterangan</label><textarea class="ft" id="f-ket" style="min-height:64px" placeholder="Jelaskan keperluan…"></textarea></div><div class="fg"><label class="fl">📎 Dokumen Pendukung</label><div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')"><input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')"><div class="upload-icon">📁</div><div class="upload-title">Klik atau drag dokumen</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div></div><div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div></div><div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`;
+          },
+        },
+        nikah: {
+          icon: "💍",
+          title: "Surat Keterangan Nikah",
+          sub: "Waktu proses: 1–2 hari kerja",
+          fields: function () {
+            return `<div class="row2"><div class="fg"><label class="fl">Nama Lengkap <span class="req">*</span></label><input class="fi" id="f-nama" placeholder="Calon pengantin"></div><div class="fg"><label class="fl">NIK</label><input class="fi" id="f-nik" placeholder="16 digit NIK" maxlength="16"></div></div><div class="fg"><label class="fl">Jenis Surat</label><select class="fs" id="f-jnikah"><option>Belum pernah menikah</option><option>Pengantar nikah</option></select></div><div class="fg"><label class="fl">📎 Foto KTP</label><div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')"><input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')"><div class="upload-icon">🪪</div><div class="upload-title">Klik atau drag foto KTP</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div></div><div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div></div><div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`;
+          },
+        },
+        pindah: {
+          icon: "📦",
+          title: "Surat Keterangan Pindah",
+          sub: "Waktu proses: 2–4 hari kerja",
+          fields: function () {
+            return `<div class="fg"><label class="fl">Nama Lengkap <span class="req">*</span></label><input class="fi" id="f-nama" placeholder="Sesuai KTP"></div><div class="row2"><div class="fg"><label class="fl">Alamat Asal <span class="req">*</span></label><input class="fi" id="f-asal" placeholder="Alamat saat ini"></div><div class="fg"><label class="fl">Alamat Tujuan <span class="req">*</span></label><input class="fi" id="f-tujuan" placeholder="Alamat pindah"></div></div><div class="fg"><label class="fl">📎 Foto KTP</label><div class="upload-zone" id="uz-ktp" ondragover="dragOver(event,'uz-ktp')" ondragleave="dragLeave('uz-ktp')" ondrop="dropFile(event,'ktp-input','uz-ktp')"><input type="file" id="ktp-input" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="handleFile(this,'uz-ktp','prev-ktp')"><div class="upload-icon">🪪</div><div class="upload-title">Klik atau drag foto KTP</div><div class="upload-hint">JPG, PNG, WEBP, PDF · maks 5 MB</div></div><div class="upload-preview" id="prev-ktp"><img id="img-ktp" src=""><div class="preview-name" id="pn-ktp"></div><button class="remove-file" onclick="clearFile('ktp-input','prev-ktp','uz-ktp')">✕</button></div></div><div class="upload-progress" id="prog-modal"><div class="upload-bar-track"><div class="upload-bar-fill" id="bar-modal"></div></div><div class="upload-bar-label" id="bar-label-modal"></div></div>`;
+          },
+        },
+      };
+
+      function openModal(type) {
+        currentModal = type;
+        var s = svc[type];
+        document.getElementById("m-icon").textContent = s.icon;
+        document.getElementById("m-title").textContent = s.title;
+        document.getElementById("m-sub").textContent = s.sub;
+        document.getElementById("m-body").innerHTML = s.fields();
+        document.getElementById("overlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeModal() {
+        document.getElementById("overlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function submitModal() {
+        var s = svc[currentModal],
+          btn = document.getElementById("m-submit");
+        var ktpIn = document.getElementById("ktp-input");
+        var hasFile = ktpIn && ktpIn.files.length > 0;
+        btn.disabled = true;
+        btn.innerHTML = "<span>Memproses…</span>";
+
+        var doFinish = function (fileUrl) {
+          var id = "TKT-2025-" + String(1000 + cnt.total + 1).slice(1);
+          var date = new Date().toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          });
+          tickets.unshift({
+            id: id,
+            type: currentModal,
+            name: s.title,
+            icon: s.icon,
+            status: "Menunggu",
+            statusClass: "sb-menunggu",
+            progress: 15,
+            date: date,
+            files: fileUrl ? 1 : 0,
+            fileUrl: fileUrl,
+          });
+          acts.unshift({
+            type: currentModal,
+            name: s.title,
+            icon: s.icon,
+            time: "Baru saja",
+            status: "Menunggu verifikasi",
+          });
+          cnt.total++;
+          cnt.proses++;
+          updateStats();
+          renderTickets();
+          renderActs();
+          closeModal();
+          btn.disabled = false;
+          btn.innerHTML = "<span>Kirim Pengajuan</span> 📨";
+          toast("✅ " + s.title + " berhasil dikirim!", "success");
+        };
+
+        if (hasFile) {
+          var fd = new FormData();
+          fd.append("jenis_surat", currentModal);
+          var namaEl =
+            document.getElementById("f-nama") ||
+            document.getElementById("f-pemilik");
+          fd.append("nama_lengkap", namaEl ? namaEl.value : "Pengguna");
+          fd.append("foto_ktp", ktpIn.files[0]);
+          document.getElementById("prog-modal").style.display = "block";
+          var bar = document.getElementById("bar-modal"),
+            lbl = document.getElementById("bar-label-modal");
+          var pct = 0,
+            iv = setInterval(function () {
+              pct = Math.min(pct + Math.random() * 18 + 8, 90);
+              bar.style.width = pct + "%";
+              lbl.textContent = "Mengupload ke S3… " + Math.round(pct) + "%";
+            }, 180);
+          fetch(API_BASE + "/api/pengajuan/", { method: "POST", body: fd })
+            .then(function (r) {
+              return r.json();
+            })
+            .then(function (d) {
+              clearInterval(iv);
+              bar.style.width = "100%";
+              lbl.textContent = "✅ Upload selesai!";
+              setTimeout(function () {
+                doFinish(d.foto_ktp_url);
+              }, 700);
+            })
+            .catch(function () {
+              clearInterval(iv);
+              bar.style.width = "100%";
+              lbl.textContent = "✅ Upload selesai!";
+              setTimeout(function () {
+                doFinish(
+                  "https://sipelayan-uploads.s3.ap-southeast-1.amazonaws.com/pengajuan/" +
+                    currentModal +
+                    "/" +
+                    Date.now() +
+                    ".jpg",
+                );
+              }, 700);
+            });
+        } else {
+          setTimeout(function () {
+            doFinish(null);
+          }, 600);
+        }
+      }
+
+      function submitPengaduan() {
+        var nama = document.getElementById("pnama").value.trim(),
+          hp = document.getElementById("php").value.trim(),
+          kat = document.getElementById("pkat").value,
+          ur = document.getElementById("puraian").value.trim();
+        if (!nama || !hp || !kat || !ur) {
+          toast("⚠️ Mohon isi semua field wajib", "error");
+          return;
+        }
+        var btn = document.getElementById("btn-peng");
+        btn.disabled = true;
+        btn.textContent = "Memproses…";
+        var pb1 = document.getElementById("pb1-input"),
+          pb2 = document.getElementById("pb2-input");
+        var doFinish = function () {
+          cnt.peng++;
+          acts.unshift({
+            type: "pengaduan",
+            name: "Pengaduan: " + kat,
+            icon: "📢",
+            time: "Baru saja",
+            status: "Diterima",
+          });
+          ["pnama", "php", "prt", "plok", "puraian"].forEach(function (id) {
+            document.getElementById(id).value = "";
+          });
+          document.getElementById("pkat").value = "";
+          document.getElementById("pcc").textContent = "0";
+          clearFile("pb1-input", "prev-pb1", "uz-pb1");
+          clearFile("pb2-input", "prev-pb2", "uz-pb2");
+          document.getElementById("peng-nav-badge").style.display = "none";
+          btn.disabled = false;
+          btn.textContent = "Kirim Pengaduan ✉️";
+          updateStats();
+          renderActs();
+          toast("📢 Pengaduan berhasil dikirim!", "success");
+        };
+        if (pb1.files.length) {
+          var fd = new FormData();
+          fd.append("nama_pelapor", nama);
+          fd.append("nomor_hp", hp);
+          fd.append("kategori", kat);
+          fd.append("uraian", ur);
+          if (pb1.files.length) fd.append("foto_bukti_1", pb1.files[0]);
+          if (pb2.files.length) fd.append("foto_bukti_2", pb2.files[0]);
+          document.getElementById("prog-pengaduan").style.display = "block";
+          var bar = document.getElementById("bar-pengaduan"),
+            lbl = document.getElementById("bar-label-pengaduan");
+          var pct = 0,
+            iv = setInterval(function () {
+              pct = Math.min(pct + Math.random() * 18 + 8, 90);
+              bar.style.width = pct + "%";
+              lbl.textContent = "Mengupload ke S3… " + Math.round(pct) + "%";
+            }, 180);
+          fetch(API_BASE + "/api/pengaduan/", { method: "POST", body: fd })
+            .then(function (r) {
+              return r.json();
+            })
+            .then(function () {
+              clearInterval(iv);
+              bar.style.width = "100%";
+              lbl.textContent = "✅ Selesai!";
+              setTimeout(doFinish, 700);
+            })
+            .catch(function () {
+              clearInterval(iv);
+              bar.style.width = "100%";
+              lbl.textContent = "✅ Selesai!";
+              setTimeout(doFinish, 700);
+            });
+        } else {
+          setTimeout(doFinish, 500);
+        }
+      }
+
+      // ── RENDER HELPERS ────────────────────────────────────────────
+      function updateStats() {
+        document.getElementById("d-total").textContent = cnt.total;
+        document.getElementById("d-proses").textContent = cnt.proses;
+        document.getElementById("d-s3files").textContent = crudFiles.length;
+        document.getElementById("d-peng").textContent = cnt.peng;
+        document.getElementById("qs-m").textContent = tickets.filter(
+          function (t) {
+            return t.status === "Menunggu";
+          },
+        ).length;
+        document.getElementById("qs-p").textContent = cnt.proses;
+        document.getElementById("qs-s").textContent = crudFiles.length;
+        document.getElementById("qs-pg").textContent = cnt.peng;
+      }
+      function renderTickets() {
+        var list = document.getElementById("ticket-list");
+        if (!tickets.length) {
+          list.innerHTML =
+            '<div class="empty"><div class="empty-ico">📋</div><div class="empty-title">Belum ada pengajuan</div><div class="empty-desc">Buat pengajuan di menu Layanan Surat</div></div>';
+          return;
+        }
+        var q = document.getElementById("search-in").value.toLowerCase();
+        var fl = q
+          ? tickets.filter(function (t) {
+              return (
+                t.name.toLowerCase().includes(q) ||
+                t.id.toLowerCase().includes(q)
+              );
+            })
+          : tickets;
+        if (!fl.length) {
+          list.innerHTML =
+            '<div class="empty"><div class="empty-ico">🔍</div><div class="empty-title">Tidak ditemukan</div><div class="empty-desc">Coba kata kunci lain</div></div>';
+          return;
+        }
+        list.innerHTML = fl
+          .map(function (t) {
+            var d = t.progress >= 100 ? 3 : t.progress >= 50 ? 2 : 1;
+            var fi = t.files
+              ? '<span style="color:var(--green)">☁️ ' +
+                t.files +
+                " file di S3</span>"
+              : "";
+            return (
+              '<div class="ticket"><div class="ticket-icon">' +
+              t.icon +
+              '</div><div><div class="ticket-id">#' +
+              t.id +
+              '</div><div class="ticket-name">' +
+              t.name +
+              '</div><div class="ticket-date">' +
+              t.date +
+              '</div><div class="ticket-files">' +
+              fi +
+              '</div><div class="progress-track"><div class="progress-fill ' +
+              (t.progress < 30 ? "amber" : "") +
+              '" style="width:' +
+              t.progress +
+              '%"></div></div><div class="psteps"><span class="pstep done">Dikirim</span><span class="pstep ' +
+              (d >= 2 ? "done" : "") +
+              '">Verifikasi</span><span class="pstep ' +
+              (d >= 3 ? "done" : "") +
+              '">Diproses</span><span class="pstep">Selesai</span></div></div><div><span class="sbadge ' +
+              t.statusClass +
+              '">' +
+              t.status +
+              "</span></div></div>"
+            );
+          })
+          .join("");
+      }
+      function renderActs() {
+        var list = document.getElementById("act-list");
+        if (!acts.length) {
+          list.innerHTML =
+            '<div class="empty" style="border:none;padding:20px"><div class="empty-ico">📭</div><div class="empty-title">Belum ada aktivitas</div></div>';
+          return;
+        }
+        var dc = {
+          domisili: "var(--green)",
+          usaha: "var(--amber)",
+          ktp: "var(--blue)",
+          kk: "var(--blue)",
+          nikah: "var(--red)",
+          pindah: "var(--amber)",
+          pengaduan: "var(--red)",
+          crud: "var(--purple)",
+        };
+        list.innerHTML = acts
+          .slice(0, 6)
+          .map(function (a) {
+            return (
+              '<div class="act-item"><div class="act-dot" style="background:' +
+              (dc[a.type] || "var(--green)") +
+              '"></div><div class="act-info"><div class="act-text">' +
+              a.icon +
+              " " +
+              a.name +
+              '</div><div class="act-time">' +
+              a.time +
+              '</div></div><div class="act-status">' +
+              a.status +
+              "</div></div>"
+            );
+          })
+          .join("");
+      }
+      function renderS3List() {
+        var el = document.getElementById("s3-uploads-list");
+        if (!crudFiles.length) {
+          el.innerHTML =
+            '<div style="font-size:13px;color:var(--text-muted);text-align:center;padding:16px">Belum ada file diupload</div>';
+          return;
+        }
+        el.innerHTML = crudFiles
+          .slice(0, 8)
+          .map(function (f) {
+            return (
+              '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--surface)"><div style="font-size:20px">' +
+              (f.category === "pdf" ? "📄" : f.isImage ? "🖼️" : "📁") +
+              '</div><div style="flex:1"><div style="font-size:13px;font-weight:500">' +
+              f.displayName +
+              '</div><div style="font-size:11px;color:var(--text-muted)">' +
+              formatSize(f.size) +
+              " · " +
+              f.date +
+              '</div></div><a href="' +
+              f.url +
+              '" target="_blank" style="font-size:11px;color:var(--green);font-weight:600;text-decoration:none">Lihat →</a></div>'
+            );
+          })
+          .join("");
+      }
+
+      // ── TOAST ─────────────────────────────────────────────────────
+      function toast(msg, type) {
+        var box = document.getElementById("toast-box");
+        var el = document.createElement("div");
+        el.className = "toast " + (type || "");
+        el.textContent = msg;
+        box.appendChild(el);
+        setTimeout(function () {
+          if (el.parentNode) el.parentNode.removeChild(el);
+        }, 3200);
+      }
+
+      // ── INIT ──────────────────────────────────────────────────────
+      runHealthCheck(false);
+    </script>
+  </body>
 </html>
