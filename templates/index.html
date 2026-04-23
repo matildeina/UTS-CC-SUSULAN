@@ -1,0 +1,1840 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SiPelayan — Portal Layanan Publik</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --green: #1a9e72;
+        --green-dark: #0d6b4c;
+        --green-light: #d6f5eb;
+        --amber: #f5a623;
+        --amber-light: #fef3dc;
+        --blue: #2d7dd2;
+        --blue-light: #e3f0fb;
+        --red: #e84040;
+        --red-light: #fdeaea;
+        --surface: #f4f7f5;
+        --white: #ffffff;
+        --text: #1a2b24;
+        --text-muted: #6b8178;
+        --border: #d8e6e0;
+        --shadow: 0 2px 12px rgba(26, 158, 114, 0.08);
+        --shadow-lg: 0 8px 32px rgba(26, 158, 114, 0.14);
+        --radius: 14px;
+        --radius-sm: 8px;
+        --radius-pill: 999px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: var(--surface);
+        color: var(--text);
+        min-height: 100vh;
+      }
+
+      /* ── SIDEBAR ── */
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        width: 260px;
+        background: var(--white);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+        transition: transform 0.3s;
+      }
+
+      .sidebar-logo {
+        padding: 28px 24px 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .logo-mark {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--green);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+      }
+      .logo-text {
+        font-family: "Fraunces", serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .logo-text span {
+        color: var(--green);
+      }
+
+      .sidebar-nav {
+        flex: 1;
+        padding: 16px 12px;
+        overflow-y: auto;
+      }
+      .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        padding: 8px 12px;
+        margin-top: 8px;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-muted);
+        transition: all 0.2s;
+        margin-bottom: 2px;
+      }
+      .nav-item:hover {
+        background: var(--surface);
+        color: var(--text);
+      }
+      .nav-item.active {
+        background: var(--green-light);
+        color: var(--green-dark);
+      }
+      .nav-item .nav-icon {
+        font-size: 18px;
+        width: 24px;
+        text-align: center;
+      }
+      .nav-badge {
+        margin-left: auto;
+        background: var(--green);
+        color: white;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: var(--radius-pill);
+        min-width: 20px;
+        text-align: center;
+      }
+
+      .sidebar-footer {
+        padding: 16px 12px;
+        border-top: 1px solid var(--border);
+      }
+      .user-pill {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+      }
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--green);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .user-info {
+        flex: 1;
+        overflow: hidden;
+      }
+      .user-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .user-role {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      /* ── MAIN ── */
+      .main {
+        margin-left: 260px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .topbar {
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        padding: 0 32px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+      .topbar-left h1 {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .topbar-left p {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .notif-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 18px;
+        position: relative;
+        transition: background 0.2s;
+      }
+      .notif-btn:hover {
+        background: var(--green-light);
+      }
+      .notif-dot {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--red);
+        border: 2px solid white;
+      }
+
+      .content {
+        padding: 28px 32px;
+        flex: 1;
+      }
+
+      /* ── PAGE SECTIONS ── */
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+        animation: fadeUp 0.35s ease;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── STATS ── */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .stat-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: var(--radius) var(--radius) 0 0;
+      }
+      .stat-card.green::before {
+        background: var(--green);
+      }
+      .stat-card.amber::before {
+        background: var(--amber);
+      }
+      .stat-card.blue::before {
+        background: var(--blue);
+      }
+      .stat-card.red::before {
+        background: var(--red);
+      }
+      .stat-icon {
+        font-size: 24px;
+        margin-bottom: 12px;
+      }
+      .stat-num {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .stat-label {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+      .stat-change {
+        font-size: 12px;
+        margin-top: 8px;
+        font-weight: 600;
+      }
+      .stat-change.up {
+        color: var(--green);
+      }
+      .stat-change.down {
+        color: var(--red);
+      }
+
+      /* ── SERVICE CARDS ── */
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .section-title {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .section-sub {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+      .svc-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 22px;
+        cursor: pointer;
+        transition: all 0.25s;
+        position: relative;
+      }
+      .svc-card:hover {
+        border-color: var(--green);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+      }
+      .svc-card.featured {
+        border-color: var(--green);
+        background: linear-gradient(135deg, #f0fbf7 0%, white 100%);
+      }
+      .svc-card .popular-badge {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: var(--green);
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding: 3px 8px;
+        border-radius: var(--radius-pill);
+        text-transform: uppercase;
+      }
+      .svc-emoji {
+        font-size: 32px;
+        margin-bottom: 14px;
+        display: block;
+        width: 52px;
+        height: 52px;
+        background: var(--surface);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .svc-name {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .svc-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.5;
+        margin-bottom: 14px;
+      }
+      .svc-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .svc-time {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .svc-arrow {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+      }
+      .svc-card:hover .svc-arrow {
+        background: var(--green);
+        transform: translateX(3px);
+      }
+
+      /* ── MODAL / FORM OVERLAY ── */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 40, 30, 0.45);
+        z-index: 200;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 40px 20px;
+        overflow-y: auto;
+      }
+      .modal-overlay.open {
+        display: flex;
+        animation: fadeIn 0.2s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .modal {
+        background: var(--white);
+        border-radius: 20px;
+        width: 100%;
+        max-width: 580px;
+        padding: 32px;
+        animation: slideUp 0.3s ease;
+        position: relative;
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 24px;
+      }
+      .modal-icon {
+        font-size: 36px;
+        width: 60px;
+        height: 60px;
+        background: var(--green-light);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+      }
+      .modal-title {
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .modal-subtitle {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+      .modal-close {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: var(--surface);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: var(--text-muted);
+        transition: background 0.2s;
+      }
+      .modal-close:hover {
+        background: var(--border);
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .form-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+      .form-label .req {
+        color: var(--red);
+        margin-left: 2px;
+      }
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        padding: 10px 14px;
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: var(--text);
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        outline: none;
+      }
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        border-color: var(--green);
+        box-shadow: 0 0 0 3px rgba(26, 158, 114, 0.12);
+        background: var(--white);
+      }
+      .form-textarea {
+        resize: vertical;
+        min-height: 90px;
+        line-height: 1.5;
+      }
+      .form-row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 24px;
+      }
+      .btn-ghost {
+        flex: 1;
+        padding: 12px;
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: all 0.2s;
+      }
+      .btn-ghost:hover {
+        background: var(--border);
+      }
+      .btn-submit {
+        flex: 2;
+        padding: 12px;
+        border-radius: var(--radius-sm);
+        background: var(--green);
+        border: none;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        color: white;
+        letter-spacing: 0.02em;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .btn-submit:hover {
+        background: var(--green-dark);
+        transform: translateY(-1px);
+      }
+      .btn-submit:active {
+        transform: translateY(0);
+      }
+
+      /* ── STATUS PAGE ── */
+      .search-bar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .search-input {
+        flex: 1;
+        padding: 11px 16px;
+        background: var(--white);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: var(--text);
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .search-input:focus {
+        border-color: var(--green);
+      }
+      .search-btn {
+        padding: 11px 22px;
+        background: var(--green);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .search-btn:hover {
+        background: var(--green-dark);
+      }
+
+      .ticket-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .ticket {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 16px;
+        align-items: center;
+        transition: box-shadow 0.2s;
+      }
+      .ticket:hover {
+        box-shadow: var(--shadow);
+      }
+      .ticket-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+      .ticket-body {
+      }
+      .ticket-id-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 4px;
+      }
+      .ticket-id {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 600;
+      }
+      .ticket-name {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .ticket-date {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 3px;
+      }
+      .ticket-progress {
+        margin-top: 10px;
+      }
+      .progress-track {
+        height: 4px;
+        background: var(--surface);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        border-radius: 4px;
+        background: var(--green);
+        transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .progress-fill.amber {
+        background: var(--amber);
+      }
+      .progress-steps {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+      }
+      .pstep {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+      .pstep.done {
+        color: var(--green);
+        font-weight: 600;
+      }
+
+      .status-badge {
+        padding: 5px 12px;
+        border-radius: var(--radius-pill);
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .status-badge::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .sb-proses {
+        background: var(--blue-light);
+        color: var(--blue);
+      }
+      .sb-proses::before {
+        background: var(--blue);
+      }
+      .sb-selesai {
+        background: var(--green-light);
+        color: var(--green-dark);
+      }
+      .sb-selesai::before {
+        background: var(--green);
+      }
+      .sb-menunggu {
+        background: var(--amber-light);
+        color: #8b5e00;
+      }
+      .sb-menunggu::before {
+        background: var(--amber);
+      }
+
+      /* ── PENGADUAN PAGE ── */
+      .pengaduan-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 24px;
+      }
+      .form-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 28px;
+      }
+      .form-card h2 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .form-card p {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        line-height: 1.5;
+      }
+
+      .info-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+        height: fit-content;
+      }
+      .info-card h3 {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .info-item {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .info-item-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: var(--surface);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+      .info-item-text h4 {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .info-item-text p {
+        font-size: 12px;
+        color: var(--text-muted);
+        line-height: 1.4;
+      }
+
+      .char-count {
+        font-size: 12px;
+        color: var(--text-muted);
+        text-align: right;
+        margin-top: 4px;
+      }
+
+      /* ── TOAST ── */
+      .toast-container {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .toast {
+        background: var(--text);
+        color: white;
+        padding: 12px 20px;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation:
+          toastIn 0.3s ease,
+          toastOut 0.3s ease 2.7s forwards;
+        max-width: 360px;
+      }
+      .toast.success {
+        background: var(--green-dark);
+      }
+      .toast.error {
+        background: var(--red);
+      }
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes toastOut {
+        from {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+      }
+
+      /* ── EMPTY STATE ── */
+      .empty-state {
+        text-align: center;
+        padding: 48px 20px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+      .empty-icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+      }
+      .empty-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .empty-desc {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      /* ── RECENT ACTIVITY (dashboard) ── */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 20px;
+      }
+      .panel {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+      }
+      .panel-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .activity-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--surface);
+      }
+      .activity-item:last-child {
+        border-bottom: none;
+      }
+      .activity-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .activity-info {
+        flex: 1;
+      }
+      .activity-text {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .activity-time {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+      .activity-status {
+        font-size: 12px;
+      }
+
+      .quick-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .qs-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--surface);
+      }
+      .qs-item:last-child {
+        border-bottom: none;
+      }
+      .qs-label {
+        font-size: 13px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .qs-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .qs-val {
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      /* ── HAMBURGER (MOBILE PLACEHOLDER) ── */
+      .menu-btn {
+        display: none;
+      }
+
+      @media (max-width: 900px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        .main {
+          margin-left: 0;
+        }
+        .menu-btn {
+          display: flex;
+        }
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .pengaduan-wrapper {
+          grid-template-columns: 1fr;
+        }
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 580px) {
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .content {
+          padding: 20px 16px;
+        }
+        .topbar {
+          padding: 0 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+          <div class="logo-mark">
+            <div class="logo-icon">🏛️</div>
+            <div class="logo-text">Si<span>Pelayan</span></div>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px">
+            Portal Layanan Publik Digital
+          </p>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-label">Menu Utama</div>
+          <div class="nav-item active" onclick="showPage('dashboard', this)">
+            <span class="nav-icon">📊</span>
+            Dashboard
+          </div>
+          <div class="nav-item" onclick="showPage('layanan', this)">
+            <span class="nav-icon">📄</span>
+            Layanan Surat
+            <span class="nav-badge" id="surat-badge">4</span>
+          </div>
+          <div class="nav-label">Warga</div>
+          <div class="nav-item" onclick="showPage('status', this)">
+            <span class="nav-icon">🔍</span>
+            Status Layanan
+          </div>
+          <div class="nav-item" onclick="showPage('pengaduan', this)">
+            <span class="nav-icon">📢</span>
+            Pengaduan
+            <span
+              class="nav-badge"
+              style="background: var(--red)"
+              id="peng-badge"
+              >!</span
+            >
+          </div>
+          <div class="nav-label">Info</div>
+          <div class="nav-item">
+            <span class="nav-icon">📞</span>
+            Kontak
+          </div>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-pill">
+            <div class="user-avatar">BW</div>
+            <div class="user-info">
+              <div class="user-name">Budi Wicaksono</div>
+              <div class="user-role">Warga · Bandung</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <div class="main">
+        <header class="topbar">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <button class="notif-btn menu-btn" onclick="toggleSidebar()">
+              ☰
+            </button>
+            <div class="topbar-left">
+              <h1 id="topbar-title">Dashboard</h1>
+              <p id="topbar-sub">
+                Selamat datang di portal layanan publik digital
+              </p>
+            </div>
+          </div>
+          <div class="topbar-right">
+            <button class="notif-btn" onclick="showNotif()">
+              🔔
+              <div class="notif-dot" id="notif-dot"></div>
+            </button>
+          </div>
+        </header>
+
+        <main class="content">
+          <!-- DASHBOARD -->
+          <div class="page active" id="page-dashboard">
+            <div class="stats-grid">
+              <div class="stat-card green">
+                <div class="stat-icon">📄</div>
+                <div class="stat-num" id="dash-total">0</div>
+                <div class="stat-label">Total Pengajuan</div>
+                <div class="stat-change up" id="dash-change">
+                  ↑ Mulai buat pengajuan
+                </div>
+              </div>
+              <div class="stat-card amber">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-num" id="dash-proses">0</div>
+                <div class="stat-label">Sedang Diproses</div>
+                <div class="stat-change">Status aktif</div>
+              </div>
+              <div class="stat-card blue">
+                <div class="stat-icon">✅</div>
+                <div class="stat-num" id="dash-selesai">0</div>
+                <div class="stat-label">Selesai</div>
+                <div class="stat-change up">Rata-rata 3 hari</div>
+              </div>
+              <div class="stat-card red">
+                <div class="stat-icon">📢</div>
+                <div class="stat-num" id="dash-pengaduan">0</div>
+                <div class="stat-label">Pengaduan Terkirim</div>
+                <div class="stat-change">Akan ditindaklanjuti</div>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="panel">
+                <div class="panel-title">Aktivitas Terbaru</div>
+                <div id="activity-list">
+                  <div class="empty-state" style="border: none; padding: 24px">
+                    <div class="empty-icon">📭</div>
+                    <div class="empty-title">Belum ada aktivitas</div>
+                    <div class="empty-desc">
+                      Mulai buat pengajuan layanan di menu Layanan Surat
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-title">Ringkasan Status</div>
+                <div class="quick-stats">
+                  <div class="qs-item">
+                    <span class="qs-label"
+                      ><span
+                        class="qs-dot"
+                        style="background: var(--amber)"
+                      ></span
+                      >Menunggu Verifikasi</span
+                    ><span class="qs-val" id="qs-menunggu">0</span>
+                  </div>
+                  <div class="qs-item">
+                    <span class="qs-label"
+                      ><span
+                        class="qs-dot"
+                        style="background: var(--blue)"
+                      ></span
+                      >Sedang Diproses</span
+                    ><span class="qs-val" id="qs-proses">0</span>
+                  </div>
+                  <div class="qs-item">
+                    <span class="qs-label"
+                      ><span
+                        class="qs-dot"
+                        style="background: var(--green)"
+                      ></span
+                      >Selesai</span
+                    ><span class="qs-val" id="qs-selesai">0</span>
+                  </div>
+                  <div class="qs-item">
+                    <span class="qs-label"
+                      ><span
+                        class="qs-dot"
+                        style="background: var(--red)"
+                      ></span
+                      >Pengaduan</span
+                    ><span class="qs-val" id="qs-peng">0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LAYANAN -->
+          <div class="page" id="page-layanan">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Pilih Layanan Surat</div>
+                <div class="section-sub">
+                  Pilih jenis layanan yang Anda butuhkan
+                </div>
+              </div>
+            </div>
+            <div class="services-grid">
+              <div class="svc-card featured" onclick="openModal('domisili')">
+                <span class="popular-badge">Populer</span>
+                <div class="svc-emoji">🏠</div>
+                <div class="svc-name">Surat Domisili</div>
+                <div class="svc-desc">
+                  Keterangan tempat tinggal resmi yang dikeluarkan oleh
+                  kelurahan setempat
+                </div>
+                <div class="svc-meta">
+                  <span class="svc-time">⏱ 1–2 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+              <div class="svc-card" onclick="openModal('usaha')">
+                <div class="svc-emoji">🏪</div>
+                <div class="svc-name">Surat Ket. Usaha</div>
+                <div class="svc-desc">
+                  Izin keterangan usaha atau UMKM untuk keperluan perizinan dan
+                  permodalan
+                </div>
+                <div class="svc-meta">
+                  <span class="svc-time">⏱ 2–3 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+              <div class="svc-card" onclick="openModal('ktp')">
+                <div class="svc-emoji">🪪</div>
+                <div class="svc-name">Pengurusan KTP</div>
+                <div class="svc-desc">
+                  Pembuatan KTP baru, penggantian KTP hilang/rusak, atau
+                  perubahan data
+                </div>
+                <div class="svc-meta">
+                  <span class="svc-time">⏱ 3–5 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+              <div class="svc-card" onclick="openModal('kk')">
+                <div class="svc-emoji">👨‍👩‍👧‍👦</div>
+                <div class="svc-name">Kartu Keluarga</div>
+                <div class="svc-desc">
+                  Pembuatan KK baru atau perubahan data anggota keluarga
+                </div>
+                <div class="svc-meta">
+                  <span class="svc-time">⏱ 3–5 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+              <div class="svc-card" onclick="openModal('nikah')">
+                <div class="svc-emoji">💍</div>
+                <div class="svc-name">Surat Ket. Nikah</div>
+                <div class="svc-desc">
+                  Surat keterangan belum menikah atau permohonan pengantar nikah
+                </div>
+                <div class="svc-meta">
+                  <span class="svc-time">⏱ 1–2 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+              <div class="svc-card" onclick="openModal('pindah')">
+                <div class="svc-emoji">📦</div>
+                <div class="svc-name">Surat Pindah</div>
+                <div class="svc-desc">
+                  Permohonan surat keterangan pindah domisili antar kelurahan
+                  atau kota
+                </div>
+                <div class="svc-meta">
+                  <span class="svc-time">⏱ 2–4 hari kerja</span>
+                  <div class="svc-arrow">→</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STATUS -->
+          <div class="page" id="page-status">
+            <div class="search-bar">
+              <input
+                class="search-input"
+                id="search-input"
+                placeholder="🔍  Cari nomor tiket atau nama layanan..."
+                oninput="filterTickets()"
+              />
+              <button class="search-btn" onclick="filterTickets()">Cari</button>
+            </div>
+            <div class="ticket-list" id="ticket-list">
+              <div class="empty-state">
+                <div class="empty-icon">📋</div>
+                <div class="empty-title">Belum ada pengajuan</div>
+                <div class="empty-desc">
+                  Buat pengajuan layanan pertama Anda di menu Layanan Surat
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PENGADUAN -->
+          <div class="page" id="page-pengaduan">
+            <div class="pengaduan-wrapper">
+              <div class="form-card">
+                <h2>📢 Sampaikan Pengaduan</h2>
+                <p>
+                  Kami berkomitmen untuk menindaklanjuti setiap pengaduan
+                  masyarakat dengan cepat dan transparan. Laporan Anda sangat
+                  berarti untuk peningkatan layanan.
+                </p>
+                <div class="form-group">
+                  <label class="form-label"
+                    >Nama Lengkap <span class="req">*</span></label
+                  >
+                  <input
+                    class="form-input"
+                    id="peng-nama"
+                    placeholder="Nama sesuai KTP"
+                  />
+                </div>
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label class="form-label"
+                      >Nomor HP <span class="req">*</span></label
+                    >
+                    <input
+                      class="form-input"
+                      id="peng-hp"
+                      placeholder="08xxxxxxxxxx"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">RT/RW</label>
+                    <input
+                      class="form-input"
+                      id="peng-rt"
+                      placeholder="Contoh: RT 03/RW 07"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label"
+                    >Kategori Pengaduan <span class="req">*</span></label
+                  >
+                  <select class="form-select" id="peng-kategori">
+                    <option value="">-- Pilih kategori --</option>
+                    <option>Pelayanan lambat / tidak memuaskan</option>
+                    <option>Informasi tidak jelas</option>
+                    <option>Infrastruktur jalan rusak</option>
+                    <option>Kebersihan lingkungan</option>
+                    <option>Keamanan & ketertiban</option>
+                    <option>Fasilitas umum bermasalah</option>
+                    <option>Lainnya</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Lokasi Kejadian</label>
+                  <input
+                    class="form-input"
+                    id="peng-lokasi"
+                    placeholder="Nama jalan, kelurahan, atau area"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label"
+                    >Uraian Pengaduan <span class="req">*</span></label
+                  >
+                  <textarea
+                    class="form-textarea"
+                    id="peng-uraian"
+                    placeholder="Jelaskan pengaduan Anda secara lengkap dan jelas..."
+                    oninput="updateCharCount()"
+                  ></textarea>
+                  <div class="char-count">
+                    <span id="char-count">0</span> / 500 karakter
+                  </div>
+                </div>
+                <button
+                  class="btn-submit"
+                  style="
+                    width: 100%;
+                    border-radius: var(--radius-sm);
+                    padding: 13px;
+                  "
+                  onclick="submitPengaduan()"
+                >
+                  Kirim Pengaduan ✉️
+                </button>
+              </div>
+              <div>
+                <div class="info-card">
+                  <h3>Informasi Penting</h3>
+                  <div class="info-item">
+                    <div class="info-item-icon">⏱</div>
+                    <div class="info-item-text">
+                      <h4>Waktu Respon</h4>
+                      <p>Pengaduan akan ditanggapi dalam 1×24 jam hari kerja</p>
+                    </div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-item-icon">🔒</div>
+                    <div class="info-item-text">
+                      <h4>Kerahasiaan Data</h4>
+                      <p>
+                        Identitas pelapor dijaga kerahasiaannya sesuai peraturan
+                      </p>
+                    </div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-item-icon">📱</div>
+                    <div class="info-item-text">
+                      <h4>Notifikasi</h4>
+                      <p>
+                        Update status pengaduan akan dikirim via SMS ke nomor
+                        Anda
+                      </p>
+                    </div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-item-icon">📞</div>
+                    <div class="info-item-text">
+                      <h4>Hotline</h4>
+                      <p>
+                        Hubungi 08001234567 (bebas pulsa) untuk pengaduan
+                        darurat
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- MODALS -->
+    <div
+      class="modal-overlay"
+      id="modal-overlay"
+      onclick="closeModalOverlay(event)"
+    >
+      <div class="modal" id="modal-box">
+        <div class="modal-header">
+          <div>
+            <div class="modal-icon" id="modal-icon">📄</div>
+            <div class="modal-title" id="modal-title">Pengajuan Layanan</div>
+            <div class="modal-subtitle" id="modal-subtitle">
+              Isi formulir berikut dengan benar
+            </div>
+          </div>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div id="modal-body"></div>
+        <div class="modal-actions">
+          <button class="btn-ghost" onclick="closeModal()">Batal</button>
+          <button class="btn-submit" id="submit-btn" onclick="submitModal()">
+            <span>Kirim Pengajuan</span> 📨
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script>
+      var tickets = [];
+      var activities = [];
+      var totalPengajuan = 0;
+      var totalProses = 0;
+      var totalSelesai = 0;
+      var totalPengaduan = 0;
+      var currentModal = "";
+
+      var services = {
+        domisili: {
+          icon: "🏠",
+          title: "Surat Keterangan Domisili",
+          sub: "Waktu proses: 1–2 hari kerja",
+          fields: `
+      <div class="form-group"><label class="form-label">Nama Lengkap <span class="req">*</span></label><input class="form-input" id="f-nama" placeholder="Sesuai KTP"></div>
+      <div class="form-group"><label class="form-label">NIK (16 digit) <span class="req">*</span></label><input class="form-input" id="f-nik" placeholder="3273xxxxxxxxxx" maxlength="16"></div>
+      <div class="form-group"><label class="form-label">Alamat Lengkap <span class="req">*</span></label><textarea class="form-textarea" id="f-alamat" placeholder="Jl. ..., RT/RW, Kelurahan, Kecamatan" style="min-height:70px"></textarea></div>
+      <div class="form-group"><label class="form-label">Keperluan</label><input class="form-input" id="f-keperluan" placeholder="Contoh: melamar kerja, buka rekening bank, dll"></div>`,
+        },
+        usaha: {
+          icon: "🏪",
+          title: "Surat Keterangan Usaha",
+          sub: "Waktu proses: 2–3 hari kerja",
+          fields: `
+      <div class="form-group"><label class="form-label">Nama Pemilik <span class="req">*</span></label><input class="form-input" id="f-pemilik" placeholder="Nama lengkap pemilik usaha"></div>
+      <div class="form-group"><label class="form-label">Nama Usaha <span class="req">*</span></label><input class="form-input" id="f-usaha" placeholder="Nama toko / warung / usaha"></div>
+      <div class="form-group"><label class="form-label">Jenis Usaha</label><select class="form-select" id="f-jenis"><option>Kuliner / Makanan</option><option>Perdagangan umum</option><option>Jasa</option><option>Pertanian</option><option>Lainnya</option></select></div>
+      <div class="form-group"><label class="form-label">Alamat Usaha <span class="req">*</span></label><textarea class="form-textarea" id="f-alamat-usaha" placeholder="Alamat lengkap tempat usaha" style="min-height:70px"></textarea></div>`,
+        },
+        ktp: {
+          icon: "🪪",
+          title: "Permohonan KTP",
+          sub: "Waktu proses: 3–5 hari kerja",
+          fields: `
+      <div class="form-group"><label class="form-label">Jenis Permohonan <span class="req">*</span></label><select class="form-select" id="f-jenis-ktp"><option>KTP Baru</option><option>KTP Hilang</option><option>KTP Rusak</option><option>Perubahan Data</option></select></div>
+      <div class="form-group"><label class="form-label">Nama Lengkap <span class="req">*</span></label><input class="form-input" id="f-nama-ktp" placeholder="Sesuai akta lahir"></div>
+      <div class="form-row-2">
+        <div class="form-group"><label class="form-label">Tanggal Lahir</label><input type="date" class="form-input" id="f-tgl"></div>
+        <div class="form-group"><label class="form-label">No. KK</label><input class="form-input" id="f-nokk" placeholder="Nomor kartu keluarga"></div>
+      </div>`,
+        },
+        kk: {
+          icon: "👨‍👩‍👧‍👦",
+          title: "Permohonan Kartu Keluarga",
+          sub: "Waktu proses: 3–5 hari kerja",
+          fields: `
+      <div class="form-group"><label class="form-label">Jenis Permohonan <span class="req">*</span></label><select class="form-select" id="f-jenis-kk"><option>KK Baru</option><option>Penambahan Anggota</option><option>Pengurangan Anggota</option><option>Perubahan Data</option></select></div>
+      <div class="form-group"><label class="form-label">Nama Kepala Keluarga <span class="req">*</span></label><input class="form-input" id="f-nama-kk" placeholder="Sesuai KTP kepala keluarga"></div>
+      <div class="form-group"><label class="form-label">Keterangan</label><textarea class="form-textarea" id="f-ket-kk" placeholder="Jelaskan keperluan permohonan KK..." style="min-height:80px"></textarea></div>`,
+        },
+        nikah: {
+          icon: "💍",
+          title: "Surat Keterangan Nikah",
+          sub: "Waktu proses: 1–2 hari kerja",
+          fields: `
+      <div class="form-group"><label class="form-label">Nama Lengkap <span class="req">*</span></label><input class="form-input" id="f-nama-nikah" placeholder="Nama calon pengantin"></div>
+      <div class="form-row-2">
+        <div class="form-group"><label class="form-label">Tanggal Lahir</label><input type="date" class="form-input" id="f-tgl-nikah"></div>
+        <div class="form-group"><label class="form-label">NIK</label><input class="form-input" id="f-nik-nikah" placeholder="16 digit NIK"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Jenis Surat</label><select class="form-select" id="f-jenis-nikah"><option>Belum pernah menikah</option><option>Pengantar nikah</option></select></div>`,
+        },
+        pindah: {
+          icon: "📦",
+          title: "Surat Keterangan Pindah",
+          sub: "Waktu proses: 2–4 hari kerja",
+          fields: `
+      <div class="form-group"><label class="form-label">Nama Lengkap <span class="req">*</span></label><input class="form-input" id="f-nama-pindah" placeholder="Sesuai KTP"></div>
+      <div class="form-group"><label class="form-label">Alamat Asal <span class="req">*</span></label><input class="form-input" id="f-asal" placeholder="Alamat saat ini"></div>
+      <div class="form-group"><label class="form-label">Alamat Tujuan <span class="req">*</span></label><input class="form-input" id="f-tujuan" placeholder="Alamat pindah yang dituju"></div>
+      <div class="form-group"><label class="form-label">Alasan Pindah</label><textarea class="form-textarea" id="f-alasan" placeholder="Jelaskan alasan kepindahan..." style="min-height:70px"></textarea></div>`,
+        },
+      };
+
+      function showPage(id, el) {
+        document.querySelectorAll(".page").forEach(function (p) {
+          p.classList.remove("active");
+        });
+        document.getElementById("page-" + id).classList.add("active");
+        if (el) {
+          document.querySelectorAll(".nav-item").forEach(function (n) {
+            n.classList.remove("active");
+          });
+          el.classList.add("active");
+        }
+        var titles = {
+          dashboard: [
+            "Dashboard",
+            "Selamat datang di portal layanan publik digital",
+          ],
+          layanan: ["Layanan Surat", "Pilih jenis surat yang Anda butuhkan"],
+          status: ["Status Layanan", "Pantau perkembangan pengajuan Anda"],
+          pengaduan: [
+            "Pengaduan Masyarakat",
+            "Sampaikan aspirasi dan keluhan Anda",
+          ],
+        };
+        if (titles[id]) {
+          document.getElementById("topbar-title").textContent = titles[id][0];
+          document.getElementById("topbar-sub").textContent = titles[id][1];
+        }
+        if (window.innerWidth <= 900)
+          document.getElementById("sidebar").classList.remove("open");
+      }
+
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+      }
+
+      function openModal(type) {
+        currentModal = type;
+        var s = services[type];
+        document.getElementById("modal-icon").textContent = s.icon;
+        document.getElementById("modal-title").textContent = s.title;
+        document.getElementById("modal-subtitle").textContent = s.sub;
+        document.getElementById("modal-body").innerHTML = s.fields;
+        document.getElementById("modal-overlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        document.getElementById("modal-overlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function closeModalOverlay(e) {
+        if (e.target === document.getElementById("modal-overlay")) closeModal();
+      }
+
+      function submitModal() {
+        var s = services[currentModal];
+        var id = "TKT-2025-" + String(1000 + totalPengajuan + 1).slice(1);
+        var statuses = ["Menunggu", "Diproses", "Diproses"];
+        var progress = [15, 50, 75];
+        var statusClass = ["sb-menunggu", "sb-proses", "sb-proses"];
+        var progressColor = ["amber", "", ""];
+
+        var ticket = {
+          id: id,
+          type: currentModal,
+          name: s.title,
+          icon: s.icon,
+          status: statuses[0],
+          statusClass: statusClass[0],
+          progress: progress[0],
+          progressColor: progressColor[0],
+          date: new Date().toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }),
+        };
+        tickets.unshift(ticket);
+        activities.unshift({
+          type: currentModal,
+          name: s.title,
+          icon: s.icon,
+          time: "Baru saja",
+          status: "Menunggu verifikasi",
+        });
+
+        totalPengajuan++;
+        totalProses++;
+        updateStats();
+        renderTickets();
+        renderActivities();
+        closeModal();
+        showToast("✅ Pengajuan " + s.title + " berhasil dikirim!", "success");
+      }
+
+      function submitPengaduan() {
+        var nama = document.getElementById("peng-nama").value.trim();
+        var hp = document.getElementById("peng-hp").value.trim();
+        var kategori = document.getElementById("peng-kategori").value;
+        var uraian = document.getElementById("peng-uraian").value.trim();
+
+        if (!nama || !hp || !kategori || !uraian) {
+          showToast("⚠️ Mohon lengkapi semua field wajib", "error");
+          return;
+        }
+
+        totalPengaduan++;
+        document.getElementById("peng-nama").value = "";
+        document.getElementById("peng-hp").value = "";
+        document.getElementById("peng-kategori").value = "";
+        document.getElementById("peng-lokasi").value = "";
+        document.getElementById("peng-uraian").value = "";
+        document.getElementById("char-count").textContent = "0";
+        document.getElementById("peng-rt").value = "";
+        document.getElementById("peng-badge").style.display = "none";
+
+        activities.unshift({
+          type: "pengaduan",
+          name: "Pengaduan: " + kategori,
+          icon: "📢",
+          time: "Baru saja",
+          status: "Diterima, dalam tinjauan",
+        });
+        updateStats();
+        renderActivities();
+        showToast("📢 Pengaduan berhasil dikirim! Terima kasih.", "success");
+      }
+
+      function updateStats() {
+        document.getElementById("dash-total").textContent = totalPengajuan;
+        document.getElementById("dash-proses").textContent = totalProses;
+        document.getElementById("dash-selesai").textContent = totalSelesai;
+        document.getElementById("dash-pengaduan").textContent = totalPengaduan;
+        document.getElementById("qs-menunggu").textContent = tickets.filter(
+          function (t) {
+            return t.status === "Menunggu";
+          },
+        ).length;
+        document.getElementById("qs-proses").textContent = totalProses;
+        document.getElementById("qs-selesai").textContent = totalSelesai;
+        document.getElementById("qs-peng").textContent = totalPengaduan;
+        if (totalPengajuan > 0)
+          document.getElementById("dash-change").textContent =
+            "↑ " + totalPengajuan + " pengajuan dibuat";
+      }
+
+      function renderTickets() {
+        var list = document.getElementById("ticket-list");
+        if (tickets.length === 0) {
+          list.innerHTML =
+            '<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">Belum ada pengajuan</div><div class="empty-desc">Buat pengajuan layanan pertama Anda di menu Layanan Surat</div></div>';
+          return;
+        }
+        var q = (
+          document.getElementById("search-input") || { value: "" }
+        ).value.toLowerCase();
+        var filtered = q
+          ? tickets.filter(function (t) {
+              return (
+                t.name.toLowerCase().includes(q) ||
+                t.id.toLowerCase().includes(q)
+              );
+            })
+          : tickets;
+        if (filtered.length === 0) {
+          list.innerHTML =
+            '<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">Tidak ditemukan</div><div class="empty-desc">Coba kata kunci lain</div></div>';
+          return;
+        }
+        list.innerHTML = filtered
+          .map(function (t) {
+            var pSteps = t.progress >= 100 ? 3 : t.progress >= 50 ? 2 : 1;
+            return (
+              '<div class="ticket"><div class="ticket-icon">' +
+              t.icon +
+              '</div><div class="ticket-body"><div class="ticket-id-row"><span class="ticket-id">#' +
+              t.id +
+              '</span></div><div class="ticket-name">' +
+              t.name +
+              '</div><div class="ticket-date">Diajukan: ' +
+              t.date +
+              '</div><div class="ticket-progress"><div class="progress-track"><div class="progress-fill ' +
+              t.progressColor +
+              '" style="width:' +
+              t.progress +
+              '%"></div></div><div class="progress-steps"><span class="pstep done">Dikirim</span><span class="pstep ' +
+              (pSteps >= 2 ? "done" : "") +
+              '">Verifikasi</span><span class="pstep ' +
+              (pSteps >= 3 ? "done" : "") +
+              '">Diproses</span><span class="pstep">Selesai</span></div></div></div><div><span class="status-badge ' +
+              t.statusClass +
+              '">' +
+              t.status +
+              "</span></div></div>"
+            );
+          })
+          .join("");
+      }
+
+      function renderActivities() {
+        var list = document.getElementById("activity-list");
+        if (activities.length === 0) {
+          list.innerHTML =
+            '<div class="empty-state" style="border:none;padding:24px"><div class="empty-icon">📭</div><div class="empty-title">Belum ada aktivitas</div><div class="empty-desc">Mulai buat pengajuan layanan di menu Layanan Surat</div></div>';
+          return;
+        }
+        var dotColors = {
+          domisili: "var(--green)",
+          usaha: "var(--amber)",
+          ktp: "var(--blue)",
+          kk: "var(--blue)",
+          nikah: "var(--red)",
+          pindah: "var(--amber)",
+          pengaduan: "var(--red)",
+        };
+        list.innerHTML = activities
+          .slice(0, 6)
+          .map(function (a) {
+            return (
+              '<div class="activity-item"><div class="activity-dot" style="background:' +
+              (dotColors[a.type] || "var(--green)") +
+              '"></div><div class="activity-info"><div class="activity-text">' +
+              a.icon +
+              " " +
+              a.name +
+              '</div><div class="activity-time">' +
+              a.time +
+              '</div></div><div class="activity-status" style="font-size:12px;color:var(--text-muted)">' +
+              a.status +
+              "</div></div>"
+            );
+          })
+          .join("");
+      }
+
+      function filterTickets() {
+        renderTickets();
+      }
+
+      function updateCharCount() {
+        var v = document.getElementById("peng-uraian").value.length;
+        document.getElementById("char-count").textContent = Math.min(v, 500);
+      }
+
+      function showToast(msg, type) {
+        var container = document.getElementById("toast-container");
+        var el = document.createElement("div");
+        el.className = "toast " + (type || "");
+        el.textContent = msg;
+        container.appendChild(el);
+        setTimeout(function () {
+          if (el.parentNode) el.parentNode.removeChild(el);
+        }, 3200);
+      }
+
+      function showNotif() {
+        document.getElementById("notif-dot").style.display = "none";
+        showToast("🔔 Tidak ada notifikasi baru", "");
+      }
+    </script>
+  </body>
+</html>
