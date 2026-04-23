@@ -19,21 +19,21 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Masuk ke folder project (sesuaikan dengan nama repo kamu)
-            cd ~/NAMA_REPO_KAMU || git clone https://github.com/${{ github.repository }} ~/NAMA_REPO_KAMU
-            cd ~/NAMA_REPO_KAMU
+            # Masuk ke folder project
+            cd ~/UTS-CC-SUSULAN || git clone https://github.com/matildeina/UTS-CC-SUSULAN.git ~/UTS-CC-SUSULAN
+            cd ~/UTS-CC-SUSULAN
             
             # Tarik kode terbaru
             git pull origin main
             
-            # Hentikan container lama jika ada
+            # Hentikan container lama jika ada untuk menghindari konflik port
             docker stop running-uts || true
             docker rm running-uts || true
             
-            # Build ulang image
+            # Build ulang image Docker berdasarkan file terbaru
             docker build -t aplikasi-uts-matilde .
             
-            # Jalankan container baru dengan environment variables dari secrets
+            # Jalankan container baru dengan environment variables dari GitHub Secrets
             docker run -d -p 5000:5000 \
               -e DB_HOST='${{ secrets.DB_HOST }}' \
               -e DB_USER='admin' \
